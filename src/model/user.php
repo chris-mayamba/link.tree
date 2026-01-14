@@ -1,6 +1,6 @@
 <?php
 
-global $users;
+
 $users = [
     [
         'id' => 1,
@@ -26,6 +26,7 @@ $users = [
 
 function find_user(string $username, string $password): ?array
 {
+    global $users;
     foreach ($users as $user) {
         if ($user['username'] === $username && $user['password'] === $password) {
             return $user;
