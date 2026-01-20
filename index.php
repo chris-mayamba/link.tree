@@ -9,6 +9,11 @@
 </head>
 
 <body>
+  <div class="bg-animation">
+    <div class="blob"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
 
 <?php
   include_once("src/view/home.php");
