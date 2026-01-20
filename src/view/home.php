@@ -18,20 +18,20 @@
       </a> 
     </div>
     <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-      <div class="relative mx-auto border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl">
-        <div class="w-[148px] h-[18px] bg-gray-800 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
-        <div class="h-[32px] w-[3px] bg-gray-800 absolute -left-[17px] top-[72px] rounded-l-lg"></div>
-        <div class="h-[46px] w-[3px] bg-gray-800 absolute -left-[17px] top-[124px] rounded-l-lg"></div>
-        <div class="h-[46px] w-[3px] bg-gray-800 absolute -left-[17px] top-[178px] rounded-l-lg"></div>
-        <div class="h-[64px] w-[3px] bg-gray-800 absolute -right-[17px] top-[142px] rounded-r-lg"></div>
-        <div class="rounded-[2rem] overflow-hidden w-full h-full bg-gray-700 dark:bg-gray-800">
+      <div class="relative mx-auto border-gray-800/80 backdrop-blur-md bg-gray-900/30 border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-2xl transition-all duration-700 hover:scale-105">
+        <div class="w-[148px] h-[18px] bg-gray-800/80 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
+        <div class="h-[32px] w-[3px] bg-gray-800/80 absolute -left-[17px] top-[72px] rounded-l-lg"></div>
+        <div class="h-[46px] w-[3px] bg-gray-800/80 absolute -left-[17px] top-[124px] rounded-l-lg"></div>
+        <div class="h-[46px] w-[3px] bg-gray-800/80 absolute -left-[17px] top-[178px] rounded-l-lg"></div>
+        <div class="h-[64px] w-[3px] bg-gray-800/80 absolute -right-[17px] top-[142px] rounded-r-lg"></div>
+        <div class="rounded-[2rem] overflow-hidden w-full h-full bg-gray-900/20 backdrop-blur-sm shadow-inner">
              <!-- Mock Screen Content -->
-            <div class="flex flex-col items-center pt-10 px-4 space-y-4">
-                 <div class="w-20 h-20 bg-gray-500 rounded-full"></div>
-                 <div class="w-32 h-4 bg-gray-600 rounded"></div>
-                 <div class="w-full h-12 bg-indigo-600 rounded-lg"></div>
-                 <div class="w-full h-12 bg-gray-600 rounded-lg"></div>
-                 <div class="w-full h-12 bg-gray-600 rounded-lg"></div>
+            <div class="flex flex-col items-center pt-10 px-4 space-y-4 opacity-80 decoration-indigo-500">
+                 <div class="w-20 h-20 bg-indigo-500/20 border border-indigo-500/30 backdrop-blur-md rounded-full"></div>
+                 <div class="w-32 h-4 bg-gray-600/30 rounded"></div>
+                 <div class="w-full h-12 bg-indigo-600/40 border border-indigo-500/40 backdrop-blur-md rounded-lg shadow-lg"></div>
+                 <div class="w-full h-12 bg-white/5 border border-white/10 backdrop-blur-md rounded-lg"></div>
+                 <div class="w-full h-12 bg-white/5 border border-white/10 backdrop-blur-md rounded-lg"></div>
             </div>
         </div>
       </div>
