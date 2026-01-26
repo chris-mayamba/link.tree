@@ -13,6 +13,18 @@
     <div class="blob blob-2"></div>
     <div class="blob blob-3"></div>
   </div>
+
+  <form action="" method="post">
+    <label for="username">Nom d'utilisateur : </label>
+    <input type="text" name="username" id="username"> <br>
+    
+    <label for="password">Mot de passe : </label>
+    <input type="text" name="password" id="password"> <br>
+
+    <button type="submit">Sign in</button>
+    <p>Continuer avec</p>
+    <button type="submit"><a href="http://" target="_blank" rel="noopener noreferrer">Google</a></button>
+  </form>
     
 </body>
 </html>
