@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="h-full bg-gray-900">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,46 +8,53 @@
   <link rel="stylesheet" href="../public/style.css">
   <script src="../public/flowbite.min.js"></script>
 </head>
-<body class="min-h-screen bg-gray-50 flex items-center justify-center">
+<body class="h-full">
 
-  <div class="bg-animation">
-    <div class="blob"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
+  <!-- Blue background animation (kept) -->
+  <div class="bg-animation fixed inset-0 pointer-events-none" aria-hidden="true">
+    <div class="blob" style="background: linear-gradient(135deg, rgba(59,130,246,0.2) 0%, rgba(14,165,233,0.2) 100%); filter: blur(80px);"></div>
+    <div class="blob blob-2" style="background: linear-gradient(135deg, rgba(37,99,235,0.15) 0%, rgba(96,165,250,0.15) 100%); left:20%; top:15%;"></div>
+    <div class="blob blob-3" style="background: linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(99,102,241,0.1) 100%); right:10%; bottom:5%; filter: blur(100px);"></div>
   </div>
 
-  <div class="w-full max-w-md bg-gradient-to-br from-indigo-900/70 via-indigo-700/50 to-pink-900/40 p-8 rounded-2xl shadow-2xl border border-indigo-600/40 backdrop-blur-lg ring-1 ring-indigo-400/10">
-    <h1 class="text-2xl font-semibold mb-6 text-gray-800">Connexion</h1>
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" class="mx-auto h-10 w-auto" />
+    <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Sign in to your account</h2>
+  </div>
 
-    <form action="" method="post" class="space-y-4">
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <form action="#" method="POST" class="space-y-6 border border-indigo-500/30 rounded-xl p-6 backdrop-blur-sm bg-white/5">
       <div>
-        <label for="username" class="block mb-2 text-sm font-medium text-gray-200">Nom d'utilisateur</label>
-        <input type="text" name="username" id="username" class="bg-gradient-to-r from-gray-800/70 to-gray-800/50 border border-indigo-500/40 text-white placeholder-gray-300 text-sm rounded-lg focus:ring-2 focus:ring-indigo-400/60 focus:border-indigo-400 block w-full p-2.5 shadow-sm" />
+        <label for="email" class="block text-sm/6 font-medium text-gray-100">Email address</label>
+        <div class="mt-2">
+          <input id="email" type="email" name="email" required autocomplete="email" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
+        </div>
       </div>
 
       <div>
-        <label for="password" class="block mb-2 text-sm font-medium text-gray-200">Mot de passe</label>
-        <input type="password" name="password" id="password" class="bg-gradient-to-r from-gray-800/70 to-gray-800/50 border border-indigo-500/40 text-white placeholder-gray-300 text-sm rounded-lg focus:ring-2 focus:ring-indigo-400/60 focus:border-indigo-400 block w-full p-2.5 shadow-sm" />
+        <div class="flex items-center justify-between">
+          <label for="password" class="block text-sm/6 font-medium text-gray-100">Password</label>
+          <div class="text-sm">
+            <a href="#" class="font-semibold text-indigo-400 hover:text-indigo-300">Forgot password?</a>
+          </div>
+        </div>
+        <div class="mt-2">
+          <input id="password" type="password" name="password" required autocomplete="current-password" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
+        </div>
       </div>
 
-      <div class="flex items-center justify-between">
-        <button type="submit" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white text-sm font-medium rounded-lg focus:outline-none shadow-lg transform-gpu active:scale-95">Se connecter</button>
-        <a href="#" class="text-sm text-indigo-100 hover:underline">Mot de passe oublié ?</a>
-      </div>
-
-      <div class="text-center text-sm text-gray-200">ou</div>
-
-      <div class="space-y-2">
-        <!-- Google Sign-In temporairement désactivé -->
-        <button type="button" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2 border border-indigo-400 bg-white/8 text-white rounded-lg shadow-sm" aria-disabled="true" disabled>
-          <svg class="w-5 h-5 opacity-60" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21.35 11.1h-9.17v2.92h5.27c-.23 1.4-1.46 3.06-5.27 3.06-3.17 0-5.75-2.6-5.75-5.8s2.58-5.8 5.75-5.8c1.8 0 3.01.78 3.7 1.45l2.53-2.45C17.4 3.3 15.68 2.5 13 2.5 7.05 2.5 2.5 7.1 2.5 13s4.55 10.5 10.5 10.5c6.07 0 10.36-4.27 10.36-10.32 0-.7-.08-1.2-.51-1.58z"/></svg>
-          Continuer avec Google (désactivé)
-        </button>
+      <div>
+        <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Sign in</button>
       </div>
     </form>
-  </div>
 
-  <!-- Google Sign-In removed temporarily -->
+    <p class="mt-10 text-center text-sm/6 text-gray-400">
+      Nouveau?
+      <a href="#" class="font-semibold text-indigo-400 hover:text-indigo-300">Créer un compte</a>
+    </p>
+  </div>
+</div>
 
 </body>
 </html>
