@@ -24,6 +24,7 @@ $users = [
     ]
 ];
 
+
 function find_user(string $username, string $password): ?array
 {
     global $users;
