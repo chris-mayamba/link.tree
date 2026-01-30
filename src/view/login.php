@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="fr" class="h-full bg-gray-900">
 <head>
@@ -21,10 +24,25 @@
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
     <img src="../public/logo_clair.png" alt="Logo" class="mx-auto h-12 w-auto" />
     <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Sign in</h2>
+
+    <?php if (isset($_SESSION['flash'])): ?>
+      <div class="mt-4 text-center">
+        <?php if ($_SESSION['flash']['type'] === 'success'): ?>
+          <span class="bg-success-soft border border-success-subtle text-fg-success-strong text-xs font-medium px-1.5 py-0.5 rounded">
+            <?= htmlspecialchars($_SESSION['flash']['message']) ?>
+          </span>
+        <?php else: ?>
+          <span class="bg-danger-soft border border-danger-subtle text-fg-danger-strong text-xs font-medium px-1.5 py-0.5 rounded">
+            <?= htmlspecialchars($_SESSION['flash']['message']) ?>
+          </span>
+        <?php endif; ?>
+      </div>
+      <?php unset($_SESSION['flash']); ?>
+    <?php endif; ?>
   </div>
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <form action="../controllers/user_connect.php" type="hidden" method="POST" class="space-y-6 border border-indigo-500/30 rounded-xl p-6 backdrop-blur-sm bg-white/5">
+    <form action="../controllers/user_connect.php" method="POST" class="space-y-6 border border-indigo-500/30 rounded-xl p-6 backdrop-blur-sm bg-white/5">
       <div>
         <label 
           for="username" 

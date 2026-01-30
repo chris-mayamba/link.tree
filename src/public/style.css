@@ -14,6 +14,8 @@
     --color-orange-950: oklch(26.6% 0.079 36.259);
     --color-yellow-400: oklch(85.2% 0.199 91.936);
     --color-lime-500: oklch(76.8% 0.233 130.85);
+    --color-emerald-50: oklch(97.9% 0.021 166.113);
+    --color-emerald-200: oklch(90.5% 0.093 164.15);
     --color-emerald-300: oklch(84.5% 0.143 164.978);
     --color-emerald-600: oklch(59.6% 0.145 163.225);
     --color-emerald-700: oklch(50.8% 0.118 165.612);
@@ -39,6 +41,8 @@
     --color-purple-500: oklch(62.7% 0.265 303.9);
     --color-fuchsia-500: oklch(66.7% 0.295 322.15);
     --color-pink-500: oklch(65.6% 0.241 354.308);
+    --color-rose-50: oklch(96.9% 0.015 12.422);
+    --color-rose-200: oklch(89.2% 0.058 10.001);
     --color-rose-300: oklch(81% 0.117 11.638);
     --color-rose-500: oklch(64.5% 0.246 16.439);
     --color-rose-700: oklch(51.4% 0.222 16.935);
@@ -61,6 +65,8 @@
     --breakpoint-xl: 80rem;
     --container-sm: 24rem;
     --container-2xl: 42rem;
+    --text-xs: 0.75rem;
+    --text-xs--line-height: calc(1 / 0.75);
     --text-sm: 0.875rem;
     --text-sm--line-height: calc(1.25 / 0.875);
     --text-base: 1rem;
@@ -101,13 +107,19 @@
     --color-body: var(--color-gray-600);
     --color-heading: var(--color-gray-900);
     --color-fg-brand: var(--color-blue-700);
+    --color-fg-success-strong: var(--color-emerald-900);
+    --color-fg-danger-strong: var(--color-rose-900);
     --color-neutral-primary: var(--color-white);
     --color-neutral-secondary-soft: var(--color-gray-50);
     --color-neutral-tertiary: var(--color-gray-100);
     --color-brand: var(--color-blue-700);
     --color-brand-medium: var(--color-blue-200);
     --color-brand-strong: var(--color-blue-800);
+    --color-success-soft: var(--color-emerald-50);
+    --color-danger-soft: var(--color-rose-50);
     --color-default: var(--color-gray-200);
+    --color-success-subtle: var(--color-emerald-200);
+    --color-danger-subtle: var(--color-rose-200);
   }
 }
 @layer base {
@@ -564,6 +576,9 @@
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 1px;
   }
+  .border-danger-subtle {
+    border-color: var(--color-danger-subtle);
+  }
   .border-default {
     border-color: var(--color-default);
   }
@@ -591,6 +606,9 @@
       border-color: color-mix(in oklab, var(--color-indigo-500) 40%, transparent);
     }
   }
+  .border-success-subtle {
+    border-color: var(--color-success-subtle);
+  }
   .border-transparent {
     border-color: transparent;
   }
@@ -602,6 +620,9 @@
   }
   .bg-brand {
     background-color: var(--color-brand);
+  }
+  .bg-danger-soft {
+    background-color: var(--color-danger-soft);
   }
   .bg-gray-600\/30 {
     background-color: color-mix(in srgb, oklch(44.6% 0.03 256.802) 30%, transparent);
@@ -669,6 +690,9 @@
   .bg-neutral-secondary-soft {
     background-color: var(--color-neutral-secondary-soft);
   }
+  .bg-success-soft {
+    background-color: var(--color-success-soft);
+  }
   .bg-white\/5 {
     background-color: color-mix(in srgb, #fff 5%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
@@ -684,6 +708,9 @@
   .p-6 {
     padding: calc(var(--spacing) * 6);
   }
+  .px-1\.5 {
+    padding-inline: calc(var(--spacing) * 1.5);
+  }
   .px-3 {
     padding-inline: calc(var(--spacing) * 3);
   }
@@ -695,6 +722,9 @@
   }
   .px-6 {
     padding-inline: calc(var(--spacing) * 6);
+  }
+  .py-0\.5 {
+    padding-block: calc(var(--spacing) * 0.5);
   }
   .py-1\.5 {
     padding-block: calc(var(--spacing) * 1.5);
@@ -744,6 +774,10 @@
     font-size: var(--text-xl);
     line-height: var(--tw-leading, var(--text-xl--line-height));
   }
+  .text-xs {
+    font-size: var(--text-xs);
+    line-height: var(--tw-leading, var(--text-xs--line-height));
+  }
   .leading-5 {
     --tw-leading: var(--leading-5);
     line-height: var(--leading-5);
@@ -781,6 +815,12 @@
   }
   .text-body {
     color: var(--color-body);
+  }
+  .text-fg-danger-strong {
+    color: var(--color-fg-danger-strong);
+  }
+  .text-fg-success-strong {
+    color: var(--color-fg-success-strong);
   }
   .text-gray-100 {
     color: var(--color-gray-100);
