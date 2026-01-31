@@ -9,14 +9,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = find_user($username, $password);
 
         if ($user) {
-            $_SESSION['flash'] = [
+            $_SESSION['badge'] = [
                 'type' => 'success',
                 'message' => 'Connexion réussie !'
             ];
             header("Location: ../view/dashboard.php");
             exit;
         } else {
-            $_SESSION['flash'] = [
+            $_SESSION['badge'] = [
                 'type' => 'danger',
                 'message' => 'Identifiants incorrects.'
             ];
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
     } else {
-        $_SESSION['flash'] = [
+        $_SESSION['badge'] = [
             'type' => 'danger',
             'message' => 'Veuillez remplir tous les champs.'
         ];

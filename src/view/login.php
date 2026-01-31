@@ -1,4 +1,9 @@
 <?php
+
+if (session_status() !== PHP_SESSION_ACTIVE) {
+  header('Location: dashboard.php');
+}
+
 session_start();
 ?>
 <!DOCTYPE html>
@@ -25,19 +30,19 @@ session_start();
     <img src="../public/logo_clair.png" alt="Logo" class="mx-auto h-12 w-auto" />
     <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Sign in</h2>
 
-    <?php if (isset($_SESSION['flash'])): ?>
+    <?php if (isset($_SESSION['badge'])): ?>
       <div class="mt-4 text-center">
-        <?php if ($_SESSION['flash']['type'] === 'success'): ?>
+        <?php if ($_SESSION['badge']['type'] === 'success'): ?>
           <span class="bg-success-soft border border-success-subtle text-fg-success-strong text-xs font-medium px-1.5 py-0.5 rounded">
-            <?= htmlspecialchars($_SESSION['flash']['message']) ?>
+            <?= htmlspecialchars($_SESSION['badge']['message']) ?>
           </span>
         <?php else: ?>
           <span class="bg-danger-soft border border-danger-subtle text-fg-danger-strong text-xs font-medium px-1.5 py-0.5 rounded">
-            <?= htmlspecialchars($_SESSION['flash']['message']) ?>
+            <?= htmlspecialchars($_SESSION['badge']['message']) ?>
           </span>
         <?php endif; ?>
       </div>
-      <?php unset($_SESSION['flash']); ?>
+      <?php unset($_SESSION['badge']); ?>
     <?php endif; ?>
   </div>
 
