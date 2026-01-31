@@ -9,6 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = find_user($username, $password);
 
         if ($user) {
+            // Store minimal user info in session to mark as authenticated
+            $_SESSION['user'] = $user['username'];
             $_SESSION['badge'] = [
                 'type' => 'success',
                 'message' => 'Connexion réussie !'

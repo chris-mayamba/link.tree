@@ -1,10 +1,11 @@
 <?php
-
-if (session_status() !== PHP_SESSION_ACTIVE) {
-  header('Location: dashboard.php');
-}
-
 session_start();
+
+// If user is already logged in, redirect to dashboard
+if (isset($_SESSION['user'])) {
+  header('Location: dashboard.php');
+  exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr" class="h-full bg-gray-900">

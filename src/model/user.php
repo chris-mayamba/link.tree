@@ -24,7 +24,12 @@ $users = [
     ]
 ];
 
-
+/**
+ * Summary of find_user
+ * @param string $username
+ * @param string $password
+ * @return null|array
+ */
 function find_user(string $username, string $password): ?array
 {
     global $users;
