@@ -3,7 +3,7 @@ session_start();
 
 // If user is already logged in, redirect to dashboard
 if (isset($_SESSION['user'])) {
-  header('Location: dashboard.php');
+  header('Location: links.php');
   exit;
 }
 ?>
@@ -12,7 +12,7 @@ if (isset($_SESSION['user'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connexion</title>
+  <title><?= $title ="Connexion" ?></title>
   <link rel="icon" type="image/x-icon" href="../public/favicon_clair.ico">
   <link rel="stylesheet" href="../public/style.css">
   <script src="../public/flowbite.min.js"></script>

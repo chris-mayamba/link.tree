@@ -944,6 +944,9 @@
   .bg-neutral-secondary-soft {
     background-color: var(--color-neutral-secondary-soft);
   }
+  .bg-neutral-tertiary {
+    background-color: var(--color-neutral-tertiary);
+  }
   .bg-orange-50\/50 {
     background-color: color-mix(in srgb, oklch(98% 0.016 73.684) 50%, transparent);
     @supports (color: color-mix(in lab, red, red)) {

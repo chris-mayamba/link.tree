@@ -1,4 +1,11 @@
-<?php session_start(); ?>
+<?php session_start(); 
+
+$current = "rounded-md bg-gray-950/50 px-3 py-2 text-sm font-medium text-white";
+$same = "rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white";
+
+$current_mobile = "bg-gray-950/50 text-white";
+$same_mobile = "text-gray-300 hover:bg-white/5 hover:text-white";
+?>
 
 <!DOCTYPE html>
 <html lang="fr" class="h-full bg-gray-900">
@@ -6,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title = "Dashboard"?></title>
+    <title><?= $title = "Links"?></title>
     <link rel="stylesheet" href="../public/style.css">
     <style>
     /* Discreet white background particles */
@@ -129,12 +136,11 @@
                         <div class="hidden md:block">
                             <div class="ml-10 flex items-baseline space-x-4">
                                 <!-- Current: "bg-gray-950/50 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
-                                <a href="links.php"
-                                    class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">
+                                <a href="links.php" class="<?= $title === "Links" ? $current : $same;?>">
                                     My links
                                 </a>
                                 <a href="dashboard.php" aria-current="page"
-                                    class="rounded-md bg-gray-950/50 px-3 py-2 text-sm font-medium text-white">
+                                    class="<?= $title === "Dashboard" ? $current : $same;?>">
                                     Dashboard
                                 </a>
                                 <a href="#"
