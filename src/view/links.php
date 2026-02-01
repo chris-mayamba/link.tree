@@ -299,7 +299,7 @@ $same_mobile = "text-gray-300 hover:bg-white/5 hover:text-white";
             <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                 <!-- Big create link button -->
                 <div class="flex justify-center">
-                    <a href="create_link.php" class="inline-flex items-center justify-center rounded-2xl text-white px-12 py-5 text-xl font-semibold shadow-2xl transition-all min-w-[300px] bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:from-teal-500 hover:to-teal-700 focus:ring-4 focus:outline-none focus:ring-teal-300">
+                    <a href="links/create.php" class="inline-flex items-center justify-center rounded-2xl text-white px-12 py-5 text-xl font-semibold shadow-2xl transition-all min-w-[300px] bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:from-teal-500 hover:to-teal-700 focus:ring-4 focus:outline-none focus:ring-teal-300">
                         <svg class="w-6 h-6 mr-2 flex-shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                         <span class="leading-none">Créer un lien</span>
                     </a>
