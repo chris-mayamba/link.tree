@@ -113,29 +113,40 @@ session_start();
             <div class="bg-gray-800 py-8 px-4 shadow sm:rounded-lg sm:px-10 border border-gray-700">
                 <form class="space-y-6" action="#" method="POST" enctype="multipart/form-data">
                     
-                    <!-- Titre -->
-                    <div>
-                        <label for="title" class="block mb-2 text-sm font-medium text-white">Titre du lien</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
-                                </svg>
+                    <div id="links-container" class="space-y-6">
+                        <!-- Bloc Lien (Modèle) -->
+                        <div class="link-group bg-gray-700/30 p-4 rounded-lg border border-gray-600 relative">
+                            <!-- Titre -->
+                            <div class="mb-4">
+                                <label class="block mb-2 text-sm font-medium text-white">Titre du lien</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                                        </svg>
+                                    </div>
+                                    <input type="text" name="title[]" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 placeholder-gray-400" placeholder="Mon Instagram" required>
+                                </div>
                             </div>
-                            <input type="text" id="title" name="title" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 placeholder-gray-400" placeholder="Mon Instagram" required>
+
+                            <!-- URL -->
+                            <div>
+                                <label class="block mb-2 text-sm font-medium text-white">URL du réseau</label>
+                                <div class="flex">
+                                    <span class="inline-flex items-center px-3 text-sm text-gray-400 bg-gray-600 border border-e-0 border-gray-600 rounded-s-md">
+                                        https://
+                                    </span>
+                                    <input type="text" name="url[]" class="rounded-none rounded-e-lg bg-gray-700 border border-gray-600 text-white focus:ring-blue-500 focus:border-blue-500 block w-full min-w-0 flex-1 text-sm p-2.5 placeholder-gray-400" placeholder="www.instagram.com/pseudo" required>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- URL -->
-                    <div>
-                        <label for="url" class="block mb-2 text-sm font-medium text-white">URL du réseau</label>
-                        <div class="flex">
-                            <span class="inline-flex items-center px-3 text-sm text-gray-400 bg-gray-600 border border-e-0 border-gray-600 rounded-s-md">
-                                https://
-                            </span>
-                            <input type="text" id="url" name="url" class="rounded-none rounded-e-lg bg-gray-700 border border-gray-600 text-white focus:ring-blue-500 focus:border-blue-500 block w-full min-w-0 flex-1 text-sm p-2.5 placeholder-gray-400" placeholder="www.instagram.com/pseudo" required>
-                        </div>
-                    </div>
+                    <!-- Bouton Ajouter un autre lien -->
+                    <button type="button" id="add-link-btn" class="w-full py-2 px-4 border-2 border-dashed border-gray-500 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:border-gray-400 hover:bg-gray-700/50 transition-colors flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                        Ajouter un autre réseau
+                    </button>
 
                     <!-- Image Arrière-plan (File Upload) -->
                     <div>
@@ -157,7 +168,7 @@ session_start();
 
                     <!-- Boutons -->
                     <div class="flex items-center justify-between space-x-4 pt-4">
-                        <a href="../dashboard.php" class="w-full text-center py-2.5 px-4 border border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-300 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                        <a href="../links.php" class="w-full text-center py-2.5 px-4 border border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-300 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                             Retour
                         </a>
                         <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -170,5 +181,29 @@ session_start();
         </div>
     </div>
 
+    <script>
+        document.getElementById('add-link-btn').addEventListener('click', function() {
+            const container = document.getElementById('links-container');
+            const newGroup = container.firstElementChild.cloneNode(true);
+            
+            // Réinitialiser les valeurs des champs clonés
+            const inputs = newGroup.querySelectorAll('input');
+            inputs.forEach(input => input.value = '');
+            
+            // Ajouter un bouton de suppression si ce n'est pas le premier élément
+            if (!newGroup.querySelector('.remove-btn')) {
+                const removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.className = 'remove-btn absolute top-2 right-2 text-gray-400 hover:text-red-500';
+                removeBtn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+                removeBtn.onclick = function() {
+                    newGroup.remove();
+                };
+                newGroup.appendChild(removeBtn);
+            }
+            
+            container.appendChild(newGroup);
+        });
+    </script>
 </body>
 </html>
