@@ -1,5 +1,10 @@
 <?php session_start(); 
 
+if (!isset($_SESSION['user'])) {
+    
+    header('Location: ../view/login.php');
+};
+
 $current = "rounded-md bg-gray-950/50 px-3 py-2 text-sm font-medium text-white";
 $same = "rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white";
 

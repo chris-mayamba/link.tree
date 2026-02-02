@@ -1,5 +1,8 @@
-<?php
-session_start();
+<?php session_start(); 
+if (!isset($_SESSION['user'])) {
+    
+    header('Location: ../view/login.php');
+};
 ?>
 <!DOCTYPE html>
 <html lang="fr" class="h-full bg-gray-900">
