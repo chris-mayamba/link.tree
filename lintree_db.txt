@@ -1,0 +1,41 @@
+-- Création de la base de données (si elle n'existe pas)
+CREATE DATABASE IF NOT EXISTS linktree_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE linktree_db;
+
+-- 1. Table des utilisateurs (Sécurité & Auth)
+CREATE TABLE IF NOT EXISTS users (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL, -- Stockera le hash (password_hash)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_user_email (email),
+    INDEX idx_user_username (username)
+) ENGINE=InnoDB;
+
+-- 2. Table des pages / Profils (Pour l'image de fond et le style)
+-- Cette table permet d'évoluer : un user pourrait avoir plusieurs pages plus tard.
+CREATE TABLE IF NOT EXISTS pages (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id INT UNSIGNED NOT NULL,
+    title VARCHAR(100) DEFAULT 'Ma Page',
+    description TEXT,
+    background_image VARCHAR(255), -- Chemin vers l'image uploadée
+    theme_color VARCHAR(20) DEFAULT '#ffffff',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- 3. Table des liens (Le contenu principal)
+CREATE TABLE IF NOT EXISTS links (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    page_id INT UNSIGNED NOT NULL, -- Lié à la page (ou user_id si vous simplifiez)
+    title VARCHAR(100) NOT NULL,
+    url VARCHAR(2048) NOT NULL,
+    icon VARCHAR(50) DEFAULT NULL, -- Pour stocker une classe icon (ex: fa-instagram)
+    position INT DEFAULT 0, -- Pour gérer l'ordre d'affichage (drag & drop)
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (page_id) REFERENCES pages(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
