@@ -2,3 +2,4 @@ node_modules
 .idea
 public
 src/config.php
+lintree_db.txt
