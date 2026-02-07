@@ -2,9 +2,22 @@
 if (!isset($_SESSION['user'])) {
     
     header('Location: ../view/login.php');
+    exit;
 };
 
+$errors = $_SESSION['errors'] ?? [];
+$old_inputs = $_SESSION['old_inputs'] ?? [];
+unset($_SESSION['errors'], $_SESSION['old_inputs']);
 
+$titles = $old_inputs['title'] ?? [''];
+$urls = $old_inputs['url'] ?? [''];
+
+if (empty($titles)) {
+    $titles = [''];
+    $urls = [''];
+}
+
+$count = max(count($titles), count($urls));
 ?>
 <!DOCTYPE html>
 <html lang="fr" class="h-full bg-gray-900">
@@ -123,8 +136,20 @@ if (!isset($_SESSION['user'])) {
                     enctype="multipart/form-data">
                     
                     <div id="links-container" class="space-y-6">
+                        <?php for($i = 0; $i < $count; $i++): 
+                            $valTitle = $titles[$i] ?? '';
+                            $valUrl = $urls[$i] ?? '';
+                            $errTitle = $errors['title'][$i] ?? null;
+                            $errUrl = $errors['url'][$i] ?? null;
+                        ?>
                         <!-- Bloc Lien (Modèle) -->
                         <div class="link-group bg-gray-700/30 p-4 rounded-lg border border-gray-600 relative">
+                            <?php if($i > 0): ?>
+                            <button type="button" class="remove-btn absolute top-2 right-2 text-gray-400 hover:text-red-500" onclick="this.closest('.link-group').remove()">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            </button>
+                            <?php endif; ?>
+
                             <!-- Titre -->
                             <div class="mb-4">
                                 <label class="block mb-2 text-sm font-medium text-white">Titre du lien</label>
@@ -137,10 +162,14 @@ if (!isset($_SESSION['user'])) {
                                     <input 
                                         type="text" 
                                         name="title[]" 
-                                        class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 placeholder-gray-400" 
+                                        value="<?= htmlspecialchars($valTitle) ?>"
+                                        class="bg-gray-700 border <?= $errTitle ? 'border-red-500' : 'border-gray-600' ?> text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 placeholder-gray-400" 
                                         placeholder="Mon Instagram" 
                                         required>
                                 </div>
+                                <?php if($errTitle): ?>
+                                    <p class="mt-2 text-sm text-red-500"><?= $errTitle ?></p>
+                                <?php endif; ?>
                             </div>
 
                             <!-- URL -->
@@ -154,12 +183,17 @@ if (!isset($_SESSION['user'])) {
                                     <input 
                                         type="text" 
                                         name="url[]" 
-                                        class="rounded-none rounded-e-lg bg-gray-700 border border-gray-600 text-white focus:ring-blue-500 focus:border-blue-500 block w-full min-w-0 flex-1 text-sm p-2.5 placeholder-gray-400" 
+                                        value="<?= htmlspecialchars($valUrl) ?>"
+                                        class="rounded-none rounded-e-lg bg-gray-700 border <?= $errUrl ? 'border-red-500' : 'border-gray-600' ?> text-white focus:ring-blue-500 focus:border-blue-500 block w-full min-w-0 flex-1 text-sm p-2.5 placeholder-gray-400" 
                                         placeholder="www.instagram.com/pseudo" 
                                         required>
                                 </div>
+                                <?php if($errUrl): ?>
+                                    <p class="mt-2 text-sm text-red-500"><?= $errUrl ?></p>
+                                <?php endif; ?>
                             </div>
                         </div>
+                        <?php endfor; ?>
                     </div>
 
                     <!-- Bouton Ajouter un autre lien -->
@@ -208,7 +242,13 @@ if (!isset($_SESSION['user'])) {
             
             // Réinitialiser les valeurs des champs clonés
             const inputs = newGroup.querySelectorAll('input');
-            inputs.forEach(input => input.value = '');
+            inputs.forEach(input => {
+                input.value = '';
+                input.classList.remove('border-red-500');
+                input.classList.add('border-gray-600');
+            });
+            // Supprimer les messages d'erreur du clone
+            newGroup.querySelectorAll('p.text-red-500').forEach(el => el.remove());
             
             // Ajouter un bouton de suppression si ce n'est pas le premier élément
             if (!newGroup.querySelector('.remove-btn')) {
