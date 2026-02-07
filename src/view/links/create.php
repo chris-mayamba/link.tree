@@ -27,8 +27,9 @@ $count = max(count($titles), count($urls));
     <title><?= $title = "Ajouter un lien" ?></title>
     <link rel="stylesheet" href="../../public/style.css">
     <link rel="shortcut icon" href="../../assets/favicon.png" type="image/x-icon">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <!-- FontAwesome for fallback and manual icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="../../public/flowbite.min.js"></script>
     <style>
     /* Colorful background particles */
     .white-bg-animation {
@@ -136,6 +137,39 @@ $count = max(count($titles), count($urls));
                     method="POST" 
                     enctype="multipart/form-data">
                     
+                    <!-- SECTION PROFIL (Correspondance Table Pages) -->
+                    <div class="space-y-4 border-b border-gray-700 pb-6 mb-6">
+                        <h3 class="text-lg font-medium text-white flex items-center gap-2">
+                            <i class="fa-solid fa-user-gear text-blue-500"></i> Votre Profil
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 gap-4">
+                            <div>
+                                <label class="block mb-2 text-sm font-medium text-white">Métier / Titre</label>
+                                <input type="text" name="job_title" placeholder="Ex: Développeur Web Fullstack" 
+                                    class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            </div>
+                            
+                            <div>
+                                <label class="block mb-2 text-sm font-medium text-white">Biographie courte</label>
+                                <textarea name="bio" rows="2" placeholder="Un petit mot sur vous..." 
+                                    class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block mb-2 text-sm font-medium text-white">Photo de profil</label>
+                                <div class="flex items-center gap-4">
+                                    <div class="relative inline-flex items-center justify-center w-12 h-12 overflow-hidden bg-gray-600 rounded-full flex-shrink-0">
+                                        <img id="avatar-preview" src="../../assets/favicon.png" class="w-full h-full object-cover hidden">
+                                        <i id="avatar-placeholder" class="fa-solid fa-user text-gray-400"></i>
+                                    </div>
+                                    <input type="file" name="profile_picture" id="profile_picture_input" accept="image/*"
+                                        class="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="links-container" class="space-y-6">
                         <?php for($i = 0; $i < $count; $i++): 
                             $valTitle = $titles[$i] ?? '';
@@ -153,7 +187,12 @@ $count = max(count($titles), count($urls));
 
                             <!-- Titre -->
                             <div class="mb-4">
-                                <label class="block mb-2 text-sm font-medium text-white">Titre du lien</label>
+                                <label class="block mb-2 text-sm font-medium text-white flex justify-between">
+                                    Titre du lien
+                                    <span class="icon-preview flex items-center gap-2 text-xs font-normal text-gray-400">
+                                        Icône suggérée : <img src="../../assets/favicon.png" class="w-4 h-4 rounded-sm icon-img opacity-0 transition-opacity">
+                                    </span>
+                                </label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                         <svg class="w-4 h-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -164,7 +203,7 @@ $count = max(count($titles), count($urls));
                                         type="text" 
                                         name="title[]" 
                                         value="<?= htmlspecialchars($valTitle) ?>"
-                                        class="bg-gray-700 border <?= $errTitle ? 'border-red-500' : 'border-gray-600' ?> text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 placeholder-gray-400" 
+                                        class="title-input bg-gray-700 border <?= $errTitle ? 'border-red-500' : 'border-gray-600' ?> text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 placeholder-gray-400" 
                                         placeholder="Mon Instagram" 
                                         required>
                                 </div>
@@ -174,7 +213,7 @@ $count = max(count($titles), count($urls));
                             </div>
 
                             <!-- URL -->
-                            <div>
+                            <div class="mb-4">
                                 <label class="block mb-2 text-sm font-medium text-white">URL du réseau</label>
                                 <div class="flex">
                                     <span 
@@ -185,7 +224,7 @@ $count = max(count($titles), count($urls));
                                         type="text" 
                                         name="url[]" 
                                         value="<?= htmlspecialchars($valUrl) ?>"
-                                        class="rounded-none rounded-e-lg bg-gray-700 border <?= $errUrl ? 'border-red-500' : 'border-gray-600' ?> text-white focus:ring-blue-500 focus:border-blue-500 block w-full min-w-0 flex-1 text-sm p-2.5 placeholder-gray-400" 
+                                        class="url-input rounded-none rounded-e-lg bg-gray-700 border <?= $errUrl ? 'border-red-500' : 'border-gray-600' ?> text-white focus:ring-blue-500 focus:border-blue-500 block w-full min-w-0 flex-1 text-sm p-2.5 placeholder-gray-400" 
                                         placeholder="www.instagram.com/pseudo" 
                                         required>
                                 </div>
@@ -193,6 +232,9 @@ $count = max(count($titles), count($urls));
                                     <p class="mt-2 text-sm text-red-500"><?= $errUrl ?></p>
                                 <?php endif; ?>
                             </div>
+
+                            <!-- Champ caché pour stocker l'icône automatiquement trouvée -->
+                            <input type="hidden" name="icon[]" class="icon-input">
                         </div>
                         <?php endfor; ?>
                     </div>
@@ -237,21 +279,87 @@ $count = max(count($titles), count($urls));
     </div>
 
     <script>
+        // Preview pour la photo de profil
+        document.getElementById('profile_picture_input').addEventListener('change', function(e) {
+            const preview = document.getElementById('avatar-preview');
+            const placeholder = document.getElementById('avatar-placeholder');
+            const file = e.target.files[0];
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    preview.src = event.target.result;
+                    preview.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Fonction pour chercher/deviner l'icône sur le web
+        function updateIconPreview(group) {
+            const titleInput = group.querySelector('.title-input');
+            const urlInput = group.querySelector('.url-input');
+            const iconInput = group.querySelector('.icon-input');
+            const iconImg = group.querySelector('.icon-img');
+
+            const valTitle = titleInput.value.toLowerCase();
+            const valUrl = urlInput.value.toLowerCase();
+
+            let domain = '';
+            
+            // Essayer de deviner le domaine via l'URL
+            if (valUrl.includes('.')) {
+                domain = valUrl.split('/')[0];
+            } else if (valTitle) {
+                // Sinon via le titre
+                const socialNetworks = ['instagram', 'facebook', 'github', 'linkedin', 'twitter', 'tiktok', 'youtube', 'twitch', 'spotify'];
+                socialNetworks.forEach(sn => {
+                    if (valTitle.includes(sn)) domain = sn + '.com';
+                });
+            }
+
+            if (domain) {
+                const iconUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+                iconImg.src = iconUrl;
+                iconImg.classList.remove('opacity-0');
+                if (!iconInput.value) {
+                    iconInput.value = iconUrl; // Pré-remplir si vide
+                }
+            } else {
+                iconImg.classList.add('opacity-0');
+            }
+        }
+
+        // Délégation d'événements pour les inputs existants et futurs
+        document.getElementById('links-container').addEventListener('input', function(e) {
+            if (e.target.classList.contains('title-input') || e.target.classList.contains('url-input')) {
+                const group = e.target.closest('.link-group');
+                updateIconPreview(group);
+            }
+        });
+
         document.getElementById('add-link-btn').addEventListener('click', function() {
             const container = document.getElementById('links-container');
             const newGroup = container.firstElementChild.cloneNode(true);
             
             // Réinitialiser les valeurs des champs clonés
-            const inputs = newGroup.querySelectorAll('input');
+            const inputs = newGroup.querySelectorAll('input, textarea');
             inputs.forEach(input => {
                 input.value = '';
                 input.classList.remove('border-red-500');
-                input.classList.add('border-gray-600');
+                if (input.classList.contains('bg-gray-700')) input.classList.add('border-gray-600');
             });
+
+            // Réinitialiser l'icône preview
+            const iconImg = newGroup.querySelector('.icon-img');
+            iconImg.src = '../../assets/favicon.png';
+            iconImg.classList.add('opacity-0');
+
             // Supprimer les messages d'erreur du clone
             newGroup.querySelectorAll('p.text-red-500').forEach(el => el.remove());
             
-            // Ajouter un bouton de suppression si ce n'est pas le premier élément
+            // Gestion du bouton de suppression
             if (!newGroup.querySelector('.remove-btn')) {
                 const removeBtn = document.createElement('button');
                 removeBtn.type = 'button';
@@ -261,6 +369,10 @@ $count = max(count($titles), count($urls));
                     newGroup.remove();
                 };
                 newGroup.appendChild(removeBtn);
+            } else {
+                newGroup.querySelector('.remove-btn').onclick = function() {
+                    newGroup.remove();
+                };
             }
             
             container.appendChild(newGroup);

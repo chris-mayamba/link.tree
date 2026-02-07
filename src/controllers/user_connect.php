@@ -7,6 +7,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = $_POST['email'];
         $password = $_POST['password'];
         $user = authenticate_user($email, $password);
+        
+        unset($user['password']);
 
         if ($user) {
             // Store minimal user info in session to mark as authenticated
