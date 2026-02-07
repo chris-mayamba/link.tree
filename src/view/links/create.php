@@ -1,5 +1,10 @@
-<?php
-session_start();
+<?php session_start(); 
+if (!isset($_SESSION['user'])) {
+    
+    header('Location: ../view/login.php');
+};
+
+
 ?>
 <!DOCTYPE html>
 <html lang="fr" class="h-full bg-gray-900">
@@ -111,7 +116,11 @@ session_start();
 
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div class="bg-gray-800 py-8 px-4 shadow sm:rounded-lg sm:px-10 border border-gray-700">
-                <form class="space-y-6" action="#" method="POST" enctype="multipart/form-data">
+                <form 
+                    class="space-y-6" 
+                    action="../../controllers/controller_links.php" 
+                    method="POST" 
+                    enctype="multipart/form-data">
                     
                     <div id="links-container" class="space-y-6">
                         <!-- Bloc Lien (Modèle) -->
@@ -125,7 +134,12 @@ session_start();
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
                                         </svg>
                                     </div>
-                                    <input type="text" name="title[]" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 placeholder-gray-400" placeholder="Mon Instagram" required>
+                                    <input 
+                                        type="text" 
+                                        name="title[]" 
+                                        class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 placeholder-gray-400" 
+                                        placeholder="Mon Instagram" 
+                                        required>
                                 </div>
                             </div>
 
@@ -133,10 +147,16 @@ session_start();
                             <div>
                                 <label class="block mb-2 text-sm font-medium text-white">URL du réseau</label>
                                 <div class="flex">
-                                    <span class="inline-flex items-center px-3 text-sm text-gray-400 bg-gray-600 border border-e-0 border-gray-600 rounded-s-md">
+                                    <span 
+                                        class="inline-flex items-center px-3 text-sm text-gray-400 bg-gray-600 border border-e-0 border-gray-600 rounded-s-md">
                                         https://
                                     </span>
-                                    <input type="text" name="url[]" class="rounded-none rounded-e-lg bg-gray-700 border border-gray-600 text-white focus:ring-blue-500 focus:border-blue-500 block w-full min-w-0 flex-1 text-sm p-2.5 placeholder-gray-400" placeholder="www.instagram.com/pseudo" required>
+                                    <input 
+                                        type="text" 
+                                        name="url[]" 
+                                        class="rounded-none rounded-e-lg bg-gray-700 border border-gray-600 text-white focus:ring-blue-500 focus:border-blue-500 block w-full min-w-0 flex-1 text-sm p-2.5 placeholder-gray-400" 
+                                        placeholder="www.instagram.com/pseudo" 
+                                        required>
                                 </div>
                             </div>
                         </div>

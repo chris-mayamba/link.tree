@@ -128,7 +128,7 @@ if (!isset($_SESSION['user'])) {
                 <div class="flex h-16 items-center justify-between">
                     <div class="flex items-center">
                         <div class="shrink-0">
-                            <img src="../assets/logo_clair.png"
+                            <img src="../assets/logo.png"
                                 alt="Your Company" class="size-8" />
                         </div>
                         <div class="hidden md:block">
