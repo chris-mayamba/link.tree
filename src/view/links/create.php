@@ -1,17 +1,5 @@
-<?php session_start(); 
-if (!isset($_SESSION['user'])) {
-    header('Location: ../view/login.php');
-    exit;
-};
-
-// Récupération des données sauvegardées en session
-$old_titles = $_SESSION['old_inputs']['title'] ?? [''];
-$old_urls = $_SESSION['old_inputs']['url'] ?? [''];
-$errors = $_SESSION['errors'] ?? [];
-
-// Nettoyage de la session
-unset($_SESSION['old_inputs'], $_SESSION['errors']);
-
+<?php
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="fr" class="h-full bg-gray-900">
@@ -123,38 +111,11 @@ unset($_SESSION['old_inputs'], $_SESSION['errors']);
 
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div class="bg-gray-800 py-8 px-4 shadow sm:rounded-lg sm:px-10 border border-gray-700">
-                <form 
-                    class="space-y-6" 
-                    action="../../controllers/controller_links.php" 
-                    method="POST" 
-                    enctype="multipart/form-data">
+                <form class="space-y-6" action="#" method="POST" enctype="multipart/form-data">
                     
                     <div id="links-container" class="space-y-6">
-                        <?php 
-                        // On détermine combien de blocs afficher : au moins 1, ou le max entre titres et URLs
-                        $count = max(1, count($old_titles), count($old_urls));
-                        
-                        for($i = 0; $i < $count; $i++): 
-                            // Récupération des valeurs courantes
-                            // Attention : $old_titles peut être vide si c'est le 1er affichage, donc on gère ?? ''
-                            $currentTitle = $old_titles[$i] ?? '';
-                            $currentUrl = $old_urls[$i] ?? '';
-                            
-                            // Récupération des erreurs spécifiques à cet index
-                            $titleError = $errors['title'][$i] ?? null;
-                            $urlError = $errors['url'][$i] ?? null;
-                        ?>
-
                         <!-- Bloc Lien (Modèle) -->
-                        <div class="link-group bg-gray-700/30 p-4 rounded-lg border <?= ($titleError || $urlError) ? 'border-red-500' : 'border-gray-600' ?> relative">
-                            
-                            <!-- Bouton suppression (si ce n'est pas le 1er élément) -->
-                            <?php if($i > 0): ?>
-                                <button type="button" class="remove-btn absolute top-2 right-2 text-gray-400 hover:text-red-500" onclick="this.closest('.link-group').remove()">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                                </button>
-                            <?php endif; ?>
-
+                        <div class="link-group bg-gray-700/30 p-4 rounded-lg border border-gray-600 relative">
                             <!-- Titre -->
                             <div class="mb-4">
                                 <label class="block mb-2 text-sm font-medium text-white">Titre du lien</label>
@@ -164,41 +125,21 @@ unset($_SESSION['old_inputs'], $_SESSION['errors']);
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
                                         </svg>
                                     </div>
-                                    <input 
-                                        type="text" 
-                                        name="title[]" 
-                                        value="<?= htmlspecialchars($currentTitle) ?>"
-                                        class="bg-gray-700 border <?= $titleError ? 'border-red-500' : 'border-gray-600' ?> text-white text-sm rounded-lg block w-full ps-10 p-2.5 placeholder-gray-400" 
-                                        placeholder="Mon Instagram"
-                                        >
+                                    <input type="text" name="title[]" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 placeholder-gray-400" placeholder="Mon Instagram" required>
                                 </div>
-                                <?php if ($titleError): ?>
-                                    <p class="mt-1 text-sm text-red-500"><?= $titleError ?></p>
-                                <?php endif; ?>
                             </div>
 
                             <!-- URL -->
                             <div>
                                 <label class="block mb-2 text-sm font-medium text-white">URL du réseau</label>
                                 <div class="flex">
-                                    <span 
-                                        class="inline-flex items-center px-3 text-sm text-gray-400 bg-gray-600 border border-e-0 border-gray-600 rounded-s-md">
+                                    <span class="inline-flex items-center px-3 text-sm text-gray-400 bg-gray-600 border border-e-0 border-gray-600 rounded-s-md">
                                         https://
                                     </span>
-                                    <input 
-                                        type="text" 
-                                        name="url[]" 
-                                        value="<?= htmlspecialchars($currentUrl) ?>"
-                                        class="rounded-none rounded-e-lg bg-gray-700 border <?= $urlError ? 'border-red-500' : 'border-gray-600' ?> text-white block w-full min-w-0 flex-1 text-sm p-2.5 placeholder-gray-400" 
-                                        placeholder="www.instagram.com/pseudo"
-                                        >
+                                    <input type="text" name="url[]" class="rounded-none rounded-e-lg bg-gray-700 border border-gray-600 text-white focus:ring-blue-500 focus:border-blue-500 block w-full min-w-0 flex-1 text-sm p-2.5 placeholder-gray-400" placeholder="www.instagram.com/pseudo" required>
                                 </div>
-                                <?php if ($urlError): ?>
-                                    <p class="mt-1 text-sm text-red-500"><?= $urlError ?></p>
-                                <?php endif; ?>
                             </div>
                         </div>
-                        <?php endfor; ?>
                     </div>
 
                     <!-- Bouton Ajouter un autre lien -->
@@ -261,37 +202,6 @@ unset($_SESSION['old_inputs'], $_SESSION['errors']);
                 newGroup.appendChild(removeBtn);
             }
             
-            // Nettoyage robuste des erreurs héritées :
-            // 1) supprimer les messages d'erreur visibles
-            const errorMessages = newGroup.querySelectorAll('p.text-red-500, p.text-red-600');
-            errorMessages.forEach(msg => msg.remove());
-
-            // 2) retirer toute classe contenant "red" (ex: border-red-500, text-red-500)
-            const allEls = [newGroup].concat(Array.from(newGroup.querySelectorAll('*')));
-            allEls.forEach(el => {
-                Array.from(el.classList).forEach(cls => {
-                    if (/red/.test(cls)) el.classList.remove(cls);
-                });
-                // retirer les styles inline de bordure hérités
-                if (el.style && el.style.borderColor) el.style.borderColor = '';
-            });
-
-            // 3) s'assurer que les éléments qui ont la classe 'border' aient une couleur de bordure par défaut
-            allEls.forEach(el => {
-                if (el.classList && el.classList.contains('border')) {
-                    const hasBorderColor = Array.from(el.classList).some(c => c.startsWith('border-') && c !== 'border');
-                    if (!hasBorderColor) el.classList.add('border-gray-600');
-                }
-            });
-
-            // 4) réinitialiser les inputs pour s'assurer qu'ils sont vierges
-            const allInputs = newGroup.querySelectorAll('input');
-            allInputs.forEach(inp => {
-                inp.value = '';
-                inp.classList.remove('border-red-500', 'text-red-500');
-                if (inp.hasAttribute('aria-invalid')) inp.removeAttribute('aria-invalid');
-            });
-
             container.appendChild(newGroup);
         });
     </script>

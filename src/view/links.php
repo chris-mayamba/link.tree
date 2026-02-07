@@ -136,7 +136,7 @@ $same_mobile = "text-gray-300 hover:bg-white/5 hover:text-white";
                     <div class="flex items-center">
                         <div class="shrink-0">
                             <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                                alt="Your Company" class="size-8" />
+                                alt="Link.Tree logo" class="size-8" />
                         </div>
                         <div class="hidden md:block">
                             <div class="ml-10 flex items-baseline space-x-4">
