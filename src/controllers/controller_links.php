@@ -58,7 +58,7 @@ function validateTitle($title){
         }
 
         if (trim($title) === '') {
-            throw new Exception('Le titre du lien ne doit contenir que des espaces.');
+            throw new Exception('Le titre du lien ne peut contenir que des espaces.');
         }
 
         if (mb_strlen($title) < 3) {
@@ -74,7 +74,7 @@ function validateUrl($url){
     }
 
     if (trim($url) === '') {
-        throw new Exception('L\'url ne doit contenir que des espaces.');
+        throw new Exception('L\'url ne peut contenir que des espaces.');
     }
 
     if (mb_strlen($url) < 5) {
@@ -86,11 +86,11 @@ function validateUrl($url){
 function validateJobTitle($job_title) {
             
     if ($job_title === null || $job_title === '') {
-        throw new Exception('Le titre du lien ne doit pas être vide.');
+        throw new Exception('Ce champ ne doit pas être vide.');
     }
 
     if (trim($job_title) === '') {
-        throw new Exception('Le titre du lien ne doit contenir que des espaces.');
+        throw new Exception('Ce champ ne peut contenir que des espaces.');
     }
     
     if (mb_strlen($job_title) > 100) {
@@ -101,7 +101,7 @@ function validateJobTitle($job_title) {
 function validateBio($bio) {        
 
     if (trim($bio) === '') {
-        throw new Exception('Le titre du lien ne doit contenir que des espaces.');
+        throw new Exception('La bio ne peut contenir que des espaces.');
     }
     
     if (mb_strlen($bio) > 500) {
