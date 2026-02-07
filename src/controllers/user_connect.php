@@ -3,14 +3,14 @@ session_start();
 require(__DIR__ . "/../model/user.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST["username"]) && isset($_POST["password"]) && !empty($_POST["username"]) && !empty($_POST["password"])) {
-        $username = $_POST['username'];
+    if (isset($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["email"]) && !empty($_POST["password"])) {
+        $email = $_POST['email'];
         $password = $_POST['password'];
-        $user = find_user($username, $password);
+        $user = authenticate_user($email, $password);
 
         if ($user) {
             // Store minimal user info in session to mark as authenticated
-            $_SESSION['user'] = $user['username'];
+            $_SESSION['user'] = $user;
             $_SESSION['badge'] = [
                 'type' => 'success',
                 'message' => 'Connexion réussie !'

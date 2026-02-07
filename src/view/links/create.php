@@ -26,6 +26,7 @@ $count = max(count($titles), count($urls));
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title = "Ajouter un lien" ?></title>
     <link rel="stylesheet" href="../../public/style.css">
+    <link rel="shortcut icon" href="../../assets/favicon.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
     <style>

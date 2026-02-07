@@ -187,7 +187,7 @@ $same_mobile = "text-gray-300 hover:bg-white/5 hover:text-white";
                                     <div
                                         class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-neutral-tertiary rounded-full">
                                         <span
-                                            class="font-medium text-body"><?=  ucfirst($_SESSION['user'][0]); ?></span>
+                                            class="font-medium text-body"><?=  ucfirst($_SESSION['user']['username'][0]); ?></span>
                                     </div>
                                 </button>
 
