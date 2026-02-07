@@ -3,11 +3,29 @@ session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
+    $job_title = isset($_POST['job_title']) ? trim($_POST['job_title']) : '';
+    $bio = isset($_POST['bio']) ? trim($_POST['bio']) : '';
+    
     $titles = isset($_POST['title']) ? $_POST['title'] : [] ;
     $urls = isset($_POST['url']) ? $_POST['url'] : [] ;
+    $icons = isset($_POST['icon']) ? $_POST['icon'] : [] ;
 
     $errors = [];
 
+    // Validation du Profil
+    try {
+        validateJobTitle($job_title);
+    } catch (Exception $e) {
+        $errors['job_title'] = $e->getMessage();
+    }
+
+    try {
+        validateBio($bio);
+    } catch (Exception $e) {
+        $errors['bio'] = $e->getMessage();
+    }
+
+    // Validation des Liens
     foreach($titles as $key => $title) {
         try {
             validateTitle($title);
@@ -50,18 +68,43 @@ function validateTitle($title){
 }
 
 function validateUrl($url){
+    
+    if ($url === null || $url === '') {
+        throw new Exception('L\'url ne doit pas être vide.');
+    }
 
-        
-        if ($url === null || $url === '') {
-            throw new Exception('L\'url ne doit pas être vide.');
-        }
+    if (trim($url) === '') {
+        throw new Exception('L\'url ne doit contenir que des espaces.');
+    }
 
-        if (trim($url) === '') {
-            throw new Exception('L\'url ne doit contenir que des espaces.');
-        }
+    if (mb_strlen($url) < 5) {
+        throw new Exception("L'url doit contenir au moins 5 caractères.");
+    }
 
-        if (mb_strlen($url) < 5) {
-            throw new Exception("L'url doit contenir au moins 5 caractères.");
-        }
+}
 
+function validateJobTitle($job_title) {
+            
+    if ($job_title === null || $job_title === '') {
+        throw new Exception('Le titre du lien ne doit pas être vide.');
+    }
+
+    if (trim($job_title) === '') {
+        throw new Exception('Le titre du lien ne doit contenir que des espaces.');
+    }
+    
+    if (mb_strlen($job_title) > 100) {
+        throw new Exception("Le titre du métier ne doit pas dépasser 100 caractères.");
+    }
+}
+
+function validateBio($bio) {        
+
+    if (trim($bio) === '') {
+        throw new Exception('Le titre du lien ne doit contenir que des espaces.');
+    }
+    
+    if (mb_strlen($bio) > 500) {
+        throw new Exception("La biographie ne doit pas dépasser 500 caractères.");
+    }
 }

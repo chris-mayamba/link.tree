@@ -12,6 +12,9 @@ unset($_SESSION['errors'], $_SESSION['old_inputs']);
 $titles = $old_inputs['title'] ?? [''];
 $urls = $old_inputs['url'] ?? [''];
 
+$job_title_val = $old_inputs['job_title'] ?? '';
+$bio_val = $old_inputs['bio'] ?? '';
+
 if (empty($titles)) {
     $titles = [''];
     $urls = [''];
@@ -146,14 +149,20 @@ $count = max(count($titles), count($urls));
                         <div class="grid grid-cols-1 gap-4">
                             <div>
                                 <label class="block mb-2 text-sm font-medium text-white">Métier / Titre</label>
-                                <input type="text" name="job_title" placeholder="Ex: Développeur Web Fullstack" 
-                                    class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                <input type="text" name="job_title" value="<?= htmlspecialchars($job_title_val) ?>" placeholder="Ex: Développeur Web Fullstack" 
+                                    class="bg-gray-700 border <?= isset($errors['job_title']) ? 'border-red-500' : 'border-gray-600' ?> text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                <?php if(isset($errors['job_title'])): ?>
+                                    <p class="mt-2 text-sm text-red-500"><?= $errors['job_title'] ?></p>
+                                <?php endif; ?>
                             </div>
                             
                             <div>
                                 <label class="block mb-2 text-sm font-medium text-white">Biographie courte</label>
                                 <textarea name="bio" rows="2" placeholder="Un petit mot sur vous..." 
-                                    class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"></textarea>
+                                    class="bg-gray-700 border <?= isset($errors['bio']) ? 'border-red-500' : 'border-gray-600' ?> text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"><?= htmlspecialchars($bio_val) ?></textarea>
+                                <?php if(isset($errors['bio'])): ?>
+                                    <p class="mt-2 text-sm text-red-500"><?= $errors['bio'] ?></p>
+                                <?php endif; ?>
                             </div>
 
                             <div>
