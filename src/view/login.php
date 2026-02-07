@@ -13,7 +13,7 @@ if (isset($_SESSION['user'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= $title ="Connexion" ?></title>
-  <link rel="icon" type="image/x-icon" href="../public/favicon_clair.ico">
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.png">
   <link rel="stylesheet" href="../public/style.css">
   <script src="../public/flowbite.min.js"></script>
 </head>

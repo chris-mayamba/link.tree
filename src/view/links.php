@@ -20,6 +20,7 @@ $same_mobile = "text-gray-300 hover:bg-white/5 hover:text-white";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title = "Links"?></title>
     <link rel="stylesheet" href="../public/style.css">
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.png">
     <style>
     /* Discreet white background particles */
     .white-bg-animation {
