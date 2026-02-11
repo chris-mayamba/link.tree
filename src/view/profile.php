@@ -1,5 +1,43 @@
 <?php
-$title = "Profil de " . (isset($username) ? htmlspecialchars($username) : "Utilisateur");
+require_once __DIR__ . '/../model/user.php';
+require_once __DIR__ . '/../model/model_links.php';
+
+// Si aucun username n'est défini (accès direct par exemple), redirection ou erreur
+if (!isset($username)) {
+    // Fallback ou erreur 404
+    header("HTTP/1.0 404 Not Found");
+    echo "Utilisateur non spécifié.";
+    exit;
+}
+
+// 1. Récupération des infos utilisateur & page
+$userProfile = get_user_profile($username);
+
+if (!$userProfile) {
+    header("HTTP/1.0 404 Not Found");
+    echo "Utilisateur introuvable.";
+    exit;
+}
+
+// 2. Récupération des liens
+// Si la page n'existe pas encore (cas rare si créé à l'inscription), on a juste userProfile mais page_id peut être null si LEFT JOIN failed ou si page pas créée.
+// Mais create_user crée la page. Donc on devrait avoir page_id.
+$links = [];
+if (!empty($userProfile['page_id'])) {
+    $links = get_links_by_page_id($userProfile['page_id']);
+}
+
+$pageTitle = $userProfile['page_title'] ?? "Profil de " . $userProfile['username'];
+$jobTitle = $userProfile['job_title'] ?? "Membre LinkTree";
+$bio = $userProfile['bio'] ?? "Bienvenue sur mon profil LinkTree !";
+// Image par défaut si pas d'image
+$profilePicture = $userProfile['profile_picture'];
+if (empty($profilePicture)) {
+    // Placeholder unsplash ou gravatar
+    $profilePicture = "https://ui-avatars.com/api/?name=" . urlencode($userProfile['username']) . "&background=random&size=256";
+}
+
+$title = $pageTitle;
 ob_start();
 ?>
 
@@ -16,52 +54,49 @@ ob_start();
             <div class="relative -mt-16 flex justify-center">
                 <div class="p-1 bg-white rounded-full">
                     <img class="h-32 w-32 rounded-full object-cover border-4 border-white shadow-sm" 
-                         src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=256&h=256&q=80" 
-                         alt="Avatar">
+                         src="<?= htmlspecialchars($profilePicture) ?>" 
+                         alt="Avatar de <?= htmlspecialchars($userProfile['username']) ?>">
                 </div>
             </div>
 
             <!-- Name and Bio -->
             <div class="text-center mt-4">
-                <h2 class="text-2xl font-bold text-gray-900"><?= isset($username) ? htmlspecialchars($username) : "Jean Dupont" ?></h2>
-                <p class="text-gray-500 font-medium italic">Développeur Web Fullstack</p>
+                <h2 class="text-2xl font-bold text-gray-900"><?= htmlspecialchars($userProfile['username']) ?></h2>
+                <p class="text-gray-500 font-medium italic"><?= htmlspecialchars($jobTitle) ?></p>
+                <?php if (!empty($bio)): ?>
                 <p class="mt-3 text-gray-600 text-sm leading-relaxed">
-                    Passionné par la création d'expériences numériques élégantes et performantes. Retrouvez-moi sur mes différents réseaux !
+                    <?= nl2br(htmlspecialchars($bio)) ?>
                 </p>
+                <?php endif; ?>
             </div>
 
             <!-- Links Section -->
             <div class="mt-8 space-y-4">
-                <!-- Single Link Item -->
-                <a href="#" class="group flex items-center p-4 bg-gray-50 rounded-xl border border-transparent transition-all hover:bg-white hover:border-blue-500 hover:shadow-md">
-                    <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 bg-blue-100 text-blue-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
-                        </svg>
-                    </div>
-                    <div class="ml-4 flex-1">
-                        <p class="text-sm font-semibold text-gray-900">GitHub</p>
-                        <p class="text-xs text-gray-500">github.com/jeandupont</p>
-                    </div>
-                    <svg class="h-5 w-5 text-gray-400 group-hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </a>
-
-                <a href="#" class="group flex items-center p-4 bg-gray-50 rounded-xl border border-transparent transition-all hover:bg-white hover:border-blue-400 hover:shadow-md">
-                    <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 bg-blue-50 text-blue-500 rounded-lg group-hover:bg-blue-500 group-hover:text-white transition-colors">
-                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path>
-                        </svg>
-                    </div>
-                    <div class="ml-4 flex-1">
-                        <p class="text-sm font-semibold text-gray-900">LinkedIn</p>
-                        <p class="text-xs text-gray-500">linkedin.com/in/jeandupont</p>
-                    </div>
-                    <svg class="h-5 w-5 text-gray-400 group-hover:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </a>
+                <?php if (empty($links)): ?>
+                    <p class="text-center text-gray-500 text-sm">Aucun lien public pour le moment.</p>
+                <?php else: ?>
+                    <?php foreach ($links as $link): ?>
+                        <a href="<?= htmlspecialchars($link['url']) ?>" target="_blank" rel="noopener noreferrer" class="group flex items-center p-4 bg-gray-50 rounded-xl border border-transparent transition-all hover:bg-white hover:border-blue-500 hover:shadow-md">
+                            <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 bg-blue-100 text-blue-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                                <?php if (!empty($link['icon'])): ?>
+                                    <i class="<?= htmlspecialchars($link['icon']) ?>"></i> <!-- Si FontAwesome ou autre -->
+                                <?php else: ?>
+                                    <!-- Icône par défaut (World) -->
+                                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                                    </svg>
+                                <?php endif; ?> 
+                            </div>
+                            <div class="ml-4 flex-1">
+                                <p class="text-sm font-semibold text-gray-900"><?= htmlspecialchars($link['title']) ?></p>
+                                <p class="text-xs text-gray-500"><?= htmlspecialchars(parse_url($link['url'], PHP_URL_HOST) ?? $link['url']) ?></p>
+                            </div>
+                            <svg class="h-5 w-5 text-gray-400 group-hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
 
             <!-- Action Button -->

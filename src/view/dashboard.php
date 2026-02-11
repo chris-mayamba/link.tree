@@ -143,16 +143,16 @@ if (!isset($_SESSION['user'])) {
                                     class="rounded-md bg-gray-950/50 px-3 py-2 text-sm font-medium text-white">
                                     Dashboard
                                 </a>
-                                <a href="#"
+                                <a href="profile.php"
                                     class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">
-                                    Projects
+                                    Profile
                                 </a>
                                 <a href="#"
-                                    class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">
+                                    class="invisible rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">
                                     Calendar
                                 </a>
                                 <a href="#"
-                                    class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">
+                                    class="invisible rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">
                                     Reports
                                 </a>
                             </div>
@@ -181,7 +181,7 @@ if (!isset($_SESSION['user'])) {
                                     <div
                                         class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-neutral-tertiary rounded-full">
                                         <span
-                                            class="font-medium text-body"><?=  ucfirst($_SESSION['user'][0]); ?></span>
+                                            class="font-medium text-body"><?=  ucfirst($_SESSION['user']['username'][0]); ?></span>
                                     </div>
                                 </button>
 
@@ -235,9 +235,9 @@ if (!isset($_SESSION['user'])) {
                         class="block rounded-md bg-gray-950/50 px-3 py-2 text-base font-medium text-white">
                         Dashboard
                     </a>
-                    <a href="#"
+                    <a href="profile.php"
                         class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white">
-                        Projects
+                        Profile
                     </a>
                     <a href="#"
                         class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white">

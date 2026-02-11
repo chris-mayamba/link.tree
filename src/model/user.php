@@ -73,3 +73,20 @@ function authenticate_user(string $email, string $password): ?array
     }
     return null;
 }
+
+/**
+ * Récupère les infos d'un utilisateur et de sa page via son username
+ */
+function get_user_profile(string $username)
+{
+    $db = dbConnect();
+    $stmt = $db->prepare("
+        SELECT u.id as user_id, u.username, u.email, 
+               p.id as page_id, p.title as page_title, p.job_title, p.bio, p.profile_picture, p.theme_color
+        FROM users u 
+        LEFT JOIN pages p ON u.id = p.user_id 
+        WHERE u.username = :username
+    ");
+    $stmt->execute(['username' => $username]);
+    return $stmt->fetch();
+}
