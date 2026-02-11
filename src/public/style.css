@@ -481,9 +481,6 @@
   .inline-flex {
     display: inline-flex;
   }
-  .table {
-    display: table;
-  }
   .size-6 {
     width: calc(var(--spacing) * 6);
     height: calc(var(--spacing) * 6);
@@ -1307,9 +1304,6 @@
   }
   .opacity-0 {
     opacity: 0%;
-  }
-  .opacity-75 {
-    opacity: 75%;
   }
   .opacity-80 {
     opacity: 80%;

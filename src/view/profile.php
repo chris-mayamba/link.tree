@@ -1,5 +1,5 @@
 <?php
-$title = "Profil Utilisateur";
+$title = "Profil de " . (isset($username) ? htmlspecialchars($username) : "Utilisateur");
 ob_start();
 ?>
 
@@ -23,7 +23,7 @@ ob_start();
 
             <!-- Name and Bio -->
             <div class="text-center mt-4">
-                <h2 class="text-2xl font-bold text-gray-900">Jean Dupont</h2>
+                <h2 class="text-2xl font-bold text-gray-900"><?= isset($username) ? htmlspecialchars($username) : "Jean Dupont" ?></h2>
                 <p class="text-gray-500 font-medium italic">Développeur Web Fullstack</p>
                 <p class="mt-3 text-gray-600 text-sm leading-relaxed">
                     Passionné par la création d'expériences numériques élégantes et performantes. Retrouvez-moi sur mes différents réseaux !
@@ -111,5 +111,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <?php
 $content = ob_get_clean();
-include 'template.php';
+include __DIR__ . '/template.php';
 ?>
