@@ -1,7 +1,10 @@
 <?php session_start(); 
+require_once __DIR__ . '/../../model/user.php';
+require_once __DIR__ . '/../../model/model_links.php';
+
 if (!isset($_SESSION['user'])) {
     
-    header('Location: ../view/login.php');
+    header('Location: ../login.php');
     exit;
 };
 
@@ -9,12 +12,39 @@ $errors = $_SESSION['errors'] ?? [];
 $old_inputs = $_SESSION['old_inputs'] ?? [];
 unset($_SESSION['errors'], $_SESSION['old_inputs']);
 
-$titles = $old_inputs['title'] ?? [''];
-$urls = $old_inputs['url'] ?? [''];
+// Initialisation
+$titles = [];
+$urls = [];
+$job_title_val = '';
+$bio_val = '';
 
-$job_title_val = $old_inputs['job_title'] ?? '';
-$bio_val = $old_inputs['bio'] ?? '';
+// 1. Cas : Retour d'erreur, on reprend les inputs envoyés
+if (!empty($old_inputs)) {
+    $titles = $old_inputs['title'] ?? [];
+    $urls = $old_inputs['url'] ?? [];
+    $job_title_val = $old_inputs['job_title'] ?? '';
+    $bio_val = $old_inputs['bio'] ?? '';
+} 
+// 2. Cas : Chargement des données existantes depuis la DB
+else {
+    $userId = $_SESSION['user']['id'];
+    $page = get_page_by_user_id($userId);
+    
+    if ($page) {
+        $job_title_val = $page['job_title'] ?? '';
+        $bio_val = $page['bio'] ?? '';
+        
+        $links = get_links_by_page_id($page['id']);
+        if ($links) {
+            foreach($links as $link) {
+                $titles[] = $link['title'];
+                $urls[] = $link['url'];
+            }
+        }
+    }
+}
 
+// Fallback : au moins un champ vide pour démarrer
 if (empty($titles)) {
     $titles = [''];
     $urls = [''];
@@ -23,7 +53,7 @@ if (empty($titles)) {
 $count = max(count($titles), count($urls));
 ?>
 <!DOCTYPE html>
-<html lang="fr" class="h-full bg-gray-900">
+<html lang="fr" class="h-full bg-white">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,93 +63,14 @@ $count = max(count($titles), count($urls));
     <!-- FontAwesome for fallback and manual icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="../../public/flowbite.min.js"></script>
-    <style>
-    /* Colorful background particles */
-    .white-bg-animation {
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 0;
-        overflow: hidden;
-    }
-
-    .white-bg-animation .particle {
-        position: absolute;
-        border-radius: 9999px;
-        filter: blur(60px); /* Plus de flou pour un effet diffus magnifique */
-        opacity: 0.6;
-        mix-blend-mode: screen; 
-    }
-
-    /* P1: Violet / Rose */
-    .white-bg-animation .p1 {
-        width: 400px;
-        height: 400px;
-        left: -5%;
-        top: -5%;
-        background: radial-gradient(circle, rgba(139, 92, 246, 0.6) 0%, rgba(236, 72, 153, 0) 70%);
-        animation: floatA 20s ease-in-out infinite;
-    }
-
-    /* P2: Bleu Cyan / Indigo */
-    .white-bg-animation .p2 {
-        width: 500px;
-        height: 500px;
-        right: -10%;
-        top: 10%;
-        background: radial-gradient(circle, rgba(6, 182, 212, 0.5) 0%, rgba(59, 130, 246, 0) 70%);
-        animation: floatB 25s ease-in-out infinite;
-    }
-
-    /* P3: Rose / Orange fort */
-    .white-bg-animation .p3 {
-        width: 300px;
-        height: 300px;
-        left: 30%;
-        bottom: 10%;
-        background: radial-gradient(circle, rgba(244, 63, 94, 0.5) 0%, rgba(236, 72, 153, 0) 70%);
-        animation: floatC 22s ease-in-out infinite;
-    }
-
-    /* P4: Vert / Bleu */
-    .white-bg-animation .p4 {
-        width: 450px;
-        height: 450px;
-        right: 15%;
-        bottom: -10%;
-        background: radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, rgba(6, 182, 212, 0) 70%);
-        animation: floatA 28s ease-in-out infinite;
-    }
-
-    @keyframes floatA {
-        0% { transform: translate(0, 0) rotate(0deg) scale(1); }
-        33% { transform: translate(30px, -50px) rotate(10deg) scale(1.1); }
-        66% { transform: translate(-20px, 20px) rotate(-5deg) scale(0.9); }
-        100% { transform: translate(0, 0) rotate(0deg) scale(1); }
-    }
-
-    @keyframes floatB {
-        0% { transform: translate(0, 0) rotate(0deg) scale(1); }
-        33% { transform: translate(-50px, 50px) rotate(-10deg) scale(0.9); }
-        66% { transform: translate(30px, -30px) rotate(5deg) scale(1.1); }
-        100% { transform: translate(0, 0) rotate(0deg) scale(1); }
-    }
-
-    @keyframes floatC {
-        0% { transform: translate(0, 0) scale(1); }
-        50% { transform: translate(50px, 50px) scale(1.1); }
-        100% { transform: translate(0, 0) scale(1); }
-    }
-    </style>
 </head>
-<body class="h-full">
+<body class="h-full text-gray-900">
 
-    <!-- Subtle white particle background -->
-    <div class="white-bg-animation" aria-hidden="true">
-        <div class="particle p1"></div>
-        <div class="particle p2"></div>
-        <div class="particle p3"></div>
-        <div class="particle p4"></div>
+    <!-- Blue background animation -->
+    <div class="bg-animation fixed inset-0 pointer-events-none" aria-hidden="true">
+        <div class="blob" style="background: linear-gradient(135deg, rgba(59,130,246,0.2) 0%, rgba(14,165,233,0.2) 100%); filter: blur(80px);"></div>
+        <div class="blob blob-2" style="background: linear-gradient(135deg, rgba(37,99,235,0.15) 0%, rgba(96,165,250,0.15) 100%); left:20%; top:15%;"></div>
+        <div class="blob blob-3" style="background: linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(99,102,241,0.1) 100%); right:10%; bottom:5%; filter: blur(100px);"></div>
     </div>
 
     <div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative z-10">

@@ -6,7 +6,7 @@ if (!isset($_SESSION['user'])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="fr" class="h-full bg-gray-900">
+<html lang="fr" class="h-full bg-white">
 
 <head>
     <meta charset="UTF-8">
@@ -14,112 +14,15 @@ if (!isset($_SESSION['user'])) {
     <title><?= $title = "Dashboard"?></title>
     <link rel="stylesheet" href="../public/style.css">
     <link rel="icon" type="image/x-icon" href="../assets/favicon.png">
-    <style>
-    /* Discreet white background particles */
-    .white-bg-animation {
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 0;
-        overflow: hidden;
-    }
-
-    .white-bg-animation .particle {
-        position: absolute;
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 9999px;
-        filter: blur(6px);
-        opacity: 0.08;
-        mix-blend-mode: screen;
-    }
-
-    .white-bg-animation .p1 {
-        width: 160px;
-        height: 160px;
-        left: 8%;
-        top: 12%;
-        animation: floatA 28s ease-in-out infinite;
-    }
-
-    .white-bg-animation .p2 {
-        width: 220px;
-        height: 220px;
-        right: 6%;
-        top: 20%;
-        animation: floatB 32s ease-in-out infinite;
-        opacity: 0.06;
-    }
-
-    .white-bg-animation .p3 {
-        width: 120px;
-        height: 120px;
-        left: 40%;
-        bottom: 8%;
-        animation: floatC 26s ease-in-out infinite;
-        opacity: 0.05;
-    }
-
-    .white-bg-animation .p4 {
-        width: 300px;
-        height: 300px;
-        right: 18%;
-        bottom: 18%;
-        animation: floatA 36s ease-in-out infinite;
-        opacity: 0.04;
-    }
-
-    @keyframes floatA {
-        0% {
-            transform: translateY(0) translateX(0) scale(1);
-        }
-
-        50% {
-            transform: translateY(-30px) translateX(10px) scale(1.03);
-        }
-
-        100% {
-            transform: translateY(0) translateX(0) scale(1);
-        }
-    }
-
-    @keyframes floatB {
-        0% {
-            transform: translateY(0) translateX(0) scale(1);
-        }
-
-        50% {
-            transform: translateY(40px) translateX(-20px) scale(0.98);
-        }
-
-        100% {
-            transform: translateY(0) translateX(0) scale(1);
-        }
-    }
-
-    @keyframes floatC {
-        0% {
-            transform: translateY(0) translateX(0) scale(1);
-        }
-
-        50% {
-            transform: translateY(-20px) translateX(18px) scale(1.02);
-        }
-
-        100% {
-            transform: translateY(0) translateX(0) scale(1);
-        }
-    }
-    </style>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
 </head>
 
-<body class="h-full">
-    <!-- Subtle white particle background -->
-    <div class="white-bg-animation" aria-hidden="true">
-        <div class="particle p1"></div>
-        <div class="particle p2"></div>
-        <div class="particle p3"></div>
-        <div class="particle p4"></div>
+<body class="h-full text-gray-900">
+    <!-- Blue background animation -->
+    <div class="bg-animation fixed inset-0 pointer-events-none" aria-hidden="true">
+        <div class="blob" style="background: linear-gradient(135deg, rgba(59,130,246,0.2) 0%, rgba(14,165,233,0.2) 100%); filter: blur(80px);"></div>
+        <div class="blob blob-2" style="background: linear-gradient(135deg, rgba(37,99,235,0.15) 0%, rgba(96,165,250,0.15) 100%); left:20%; top:15%;"></div>
+        <div class="blob blob-3" style="background: linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(99,102,241,0.1) 100%); right:10%; bottom:5%; filter: blur(100px);"></div>
     </div>
     <!-- Include this script tag or install `@tailwindplus/elements` via npm: -->
     <!--  -->
@@ -143,7 +46,7 @@ if (!isset($_SESSION['user'])) {
                                     class="rounded-md bg-gray-950/50 px-3 py-2 text-sm font-medium text-white">
                                     Dashboard
                                 </a>
-                                <a href="profile.php"
+                                <a href="/<?= htmlspecialchars($_SESSION['user']['username']) ?>"
                                     class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">
                                     Profile
                                 </a>
@@ -235,7 +138,7 @@ if (!isset($_SESSION['user'])) {
                         class="block rounded-md bg-gray-950/50 px-3 py-2 text-base font-medium text-white">
                         Dashboard
                     </a>
-                    <a href="profile.php"
+                    <a href="/<?= htmlspecialchars($_SESSION['user']['username']) ?>"
                         class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white">
                         Profile
                     </a>

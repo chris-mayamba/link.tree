@@ -4,7 +4,7 @@
       <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-tight md:text-5xl xl:text-6xl text-white">
         Tous vos liens. En un seul endroit.
       </h1>
-      <p class="max-w-2xl mb-6 font-light text-gray-400 lg:mb-8 md:text-lg lg:text-xl">
+      <p class="max-w-2xl mb-6 font-light text-gray-900 lg:mb-8 md:text-lg lg:text-xl">
         Rejoignez LinkTree et simplifiez votre présence en ligne. Un seul lien pour tout partager : réseaux sociaux, musique, événements et plus encore.
       </p>
       <a href="src/view/login.php" class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-900">

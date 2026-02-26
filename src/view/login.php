@@ -8,7 +8,7 @@ if (isset($_SESSION['user'])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="fr" class="h-full bg-gray-900">
+<html lang="fr" class="h-full bg-white">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@ if (isset($_SESSION['user'])) {
   <link rel="stylesheet" href="../public/style.css">
   <script src="../public/flowbite.min.js"></script>
 </head>
-<body class="h-full">
+<body class="h-full text-gray-900">
 
   <!-- Blue background animation (kept) -->
   <div class="bg-animation fixed inset-0 pointer-events-none" aria-hidden="true">

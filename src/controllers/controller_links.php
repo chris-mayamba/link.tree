@@ -1,5 +1,13 @@
 <?php
 session_start();
+require_once __DIR__ . '/../model/user.php';
+require_once __DIR__ . '/../model/model_links.php';
+
+// Vérification de la session
+if (!isset($_SESSION['user'])) {
+    header('Location: ../view/login.php');
+    exit;
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
@@ -48,7 +56,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ../view/links/create.php');
         exit;
     }
-    
+    // 1. Récupérer la page de l'utilisateur
+    $userId = $_SESSION['user']['id'];
+    $page = get_page_by_user_id($userId);
+
+    if (!$page) {
+        
+        die("Erreur : Page utilisateur introuvable.");
+    }
+    $pageId = $page['id'];
+
+    // 2. Mise à jour des infos de la page (Bio, Métier)
+    update_page_info($pageId, $job_title, $bio);
+
+    // 3. Mise à jour des liens (Suppression totale puis recréation)
+    // On utilise une transaction ppoour éviter les états incohérents
+    $db = dbConnect();
+    try {
+        $db->beginTransaction();
+
+        delete_links_by_page_id($pageId, $db);
+
+        // Réinsertion des liens valides
+        foreach ($titles as $key => $titleItem) {
+            $urlItem = $urls[$key] ?? '';
+            $iconItem = !empty($icons[$key]) ? $icons[$key] : null;   
+            
+            // On ignore les entrées vides si jamais il y en a qui sont passées
+            if(trim($titleItem) !== '' && trim($urlItem) !== '') {
+                create_link($pageId, $titleItem, $urlItem, $iconItem, $key, $db); // $key sert de position
+            }
+        }
+
+        $db->commit();
+
+    } catch (Exception $e) {
+        $db->rollBack();
+        $_SESSION['errors']['global'] = "Erreur système : " . $e->getMessage();
+        $_SESSION['old_inputs'] = $_POST;
+        header('Location: ../view/links/create.php');
+        exit;
+    }
+
+    // Succès -> Redirection vers la liste des liens ou profile
+    $_SESSION['badge'] = [
+        'type' => 'success',
+        'message' => 'Profil mis à jour avec succès !'
+    ];
+    header('Location: ../view/links.php'); // Ou links.php selon votre flux
+    exit;
 }
 
 function validateTitle($title){
@@ -99,10 +155,6 @@ function validateJobTitle($job_title) {
 }
 
 function validateBio($bio) {        
-
-    if (trim($bio) === '') {
-        throw new Exception('La bio ne peut contenir que des espaces.');
-    }
     
     if (mb_strlen($bio) > 500) {
         throw new Exception("La biographie ne doit pas dépasser 500 caractères.");

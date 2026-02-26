@@ -2,8 +2,25 @@
 require_once __DIR__ . '/../model/user.php';
 require_once __DIR__ . '/../model/model_links.php';
 
-// Si aucun username n'est défini (accès direct par exemple), redirection ou erreur
+// Gestion de la session safe : ne pas redémarrer si déjà active
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Logique de récupération du username :
+// 1. S'il vient du routeur (variable $username déjà définie avant l'include) -> Priorité 1 (Profil public)
+// 2. Sinon, s'il est dans l'URL GET (ex: ?u=jean) -> Priorité 2
+// 3. Sinon, s'il est connecté (Session) -> Priorité 3 (Mon profil)
 if (!isset($username)) {
+    if (isset($_GET['u'])) {
+        $username = $_GET['u'];
+    } elseif (isset($_SESSION['user']['username'])) {
+        $username = $_SESSION['user']['username'];
+    }
+}
+
+// Si aucun username n'est défini (ni routeur, ni URL, ni session), erreur
+if (empty($username)) {
     // Fallback ou erreur 404
     header("HTTP/1.0 404 Not Found");
     echo "Utilisateur non spécifié.";

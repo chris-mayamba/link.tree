@@ -90,3 +90,27 @@ function get_user_profile(string $username)
     $stmt->execute(['username' => $username]);
     return $stmt->fetch();
 }
+
+/**
+ * Récupère l'ID de la page d'un utilisateur par son ID user
+ */
+function get_page_by_user_id($userId) {
+    $db = dbConnect();
+    $stmt = $db->prepare("SELECT * FROM pages WHERE user_id = :user_id");
+    $stmt->execute(['user_id' => $userId]);
+    return $stmt->fetch();
+}
+
+/**
+ * Met à jour les informations de la page (Bio, Métier)
+ */
+function update_page_info($pageId, $jobTitle, $bio) {
+    $db = dbConnect();
+    
+    $stmt = $db->prepare("UPDATE pages SET job_title = :job_title, bio = :bio WHERE id = :id");
+    return $stmt->execute([
+        'job_title' => $jobTitle,
+        'bio' => $bio,
+        'id' => $pageId
+    ]);
+}
