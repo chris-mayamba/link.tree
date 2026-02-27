@@ -85,6 +85,12 @@ $count = max(count($titles), count($urls));
 
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div class="bg-gray-800 py-8 px-4 shadow sm:rounded-lg sm:px-10 border border-gray-700">
+                <?php if(isset($_SESSION['errors']['global'])): ?>
+                    <div class="mb-4 p-4 text-sm text-red-500 bg-red-100 rounded-lg border border-red-200" role="alert">
+                        <span class="font-medium">Erreur !</span> <?= $_SESSION['errors']['global'] ?>
+                    </div>
+                    <?php unset($_SESSION['errors']['global']); ?>
+                <?php endif; ?>
                 <form 
                     class="space-y-6" 
                     action="../../controllers/controller_links.php" 
