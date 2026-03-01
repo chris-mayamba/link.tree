@@ -58,7 +58,68 @@ $title = $pageTitle;
 ob_start();
 ?>
 
-<div class="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+<!-- Include Tailwind Plus Elements for dropdown -->
+<script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+
+<!-- Top Bar for Admin -->
+<?php if (isset($_SESSION['user']['username']) && $_SESSION['user']['username'] === $userProfile['username']): ?>
+<nav class="absolute top-0 right-0 p-4 z-50 flex items-center space-x-4">
+    <!-- Add Link Button -->
+    <a href="links/create.php" class="flex items-center justify-center px-4 py-2 border border-transparent text-sm font-bold rounded-lg text-white bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all">
+        <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+        </svg>
+        Ajouter un lien
+    </a>
+
+    <!-- Profile Dropdown -->
+    <div class="relative ml-3">
+        <button type="button" 
+                onclick="document.getElementById('user-menu').classList.toggle('hidden')"
+                class="relative flex max-w-xs items-center rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" 
+                id="user-menu-button" 
+                aria-expanded="false" 
+                aria-haspopup="true">
+            <span class="absolute -inset-1.5"></span>
+            <span class="sr-only">Open user menu</span>
+            <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-200 rounded-full border-2 border-white shadow-md">
+                <span class="font-medium text-gray-600 text-lg"><?= ucfirst($_SESSION['user']['username'][0]); ?></span>
+            </div>
+        </button>
+
+        <!-- Dropdown menu -->
+        <div id="user-menu" 
+             class="hidden absolute right-0 z-50 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" 
+             role="menu" 
+             aria-orientation="vertical" 
+             aria-labelledby="user-menu-button" 
+             tabindex="-1">
+            <!-- Profile Link -->
+            <a href="profile.php?u=<?= $_SESSION['user']['username'] ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Your profile</a>
+            <!-- Dashboard Link -->
+            <a href="dashboard.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Dashboard</a>
+            
+            <!-- Sign Out -->
+            <form action="logout.php" method="post" class="block">
+                <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Sign out</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<!-- Click outside to close menu script -->
+<script>
+    document.addEventListener('click', function(event) {
+        const menu = document.getElementById('user-menu');
+        const button = document.getElementById('user-menu-button');
+        if (!button.contains(event.target) && !menu.contains(event.target)) {
+            menu.classList.add('hidden');
+        }
+    });
+</script>
+<?php endif; ?>
+
+<div class="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center relative">
     <!-- Card Container -->
     <div class="max-w-md w-full bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all hover:scale-[1.01]">
         
@@ -116,7 +177,7 @@ ob_start();
                 <?php endif; ?>
             </div>
 
-            <!-- Action Button -->
+            <!-- Action Buttons -->
             <div class="mt-8">
                 <button id="copyProfileBtn" class="w-full flex items-center justify-center px-4 py-3 border border-transparent text-sm font-bold rounded-xl text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-all active:scale-95">
                     <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -125,6 +186,12 @@ ob_start();
                     Copier le lien du profil
                 </button>
             </div>
+            
+            <?php if (isset($_SESSION['user']['username']) && $_SESSION['user']['username'] === $userProfile['username']): ?>
+                <div class="mt-4 text-center">
+                    <a href="dashboard.php" class="text-sm text-gray-500 hover:text-gray-900 underline">Retour au Dashboard</a>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 

@@ -3,3 +3,4 @@ node_modules
 public
 src/config.php
 linktree_db.txt
+.htaccess
