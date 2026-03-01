@@ -43,6 +43,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     foreach($urls as $key => $url) {
+        // Normalisation URL : Ajout du protocole si manquant (https par défaut)
+        if (!empty($url) && !preg_match("~^(?:f|ht)tps?://~i", $url)) {
+            $url = "https://" . $url;
+            $urls[$key] = $url; // Mise à jour du tableau pour l'enregistrement
+        }
+        
         try {
             validateUrl($url);
         } catch (Exception $e) {
@@ -124,7 +130,12 @@ function validateTitle($title){
 }
 
 function validateUrl($url){
-    
+
+    // met la condition pour verifier si l'url commence avec  https:\\    
+    if($url && !preg_match("~^(?:f|ht)tps?://~i", $url)){
+        throw new Exception("L'url doit commencer par http:// ou https://");
+    }
+
     if ($url === null || $url === '') {
         throw new Exception('L\'url ne doit pas être vide.');
     }

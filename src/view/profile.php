@@ -66,13 +66,13 @@ ob_start();
 </div>
 
 <!-- Include Tailwind Plus Elements for dropdown -->
-<script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script> -->
 
 <!-- Top Bar for Admin -->
 <?php if (isset($_SESSION['user']['username']) && $_SESSION['user']['username'] === $userProfile['username']): ?>
 <nav class="absolute top-0 right-0 p-4 z-50 flex items-center space-x-4">
     <!-- Add Link Button -->
-    <a href="links/create.php" class="flex items-center justify-center px-4 py-2 border border-transparent text-sm font-bold rounded-lg text-white bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all">
+    <a href="src/view/links/create.php" class="flex items-center justify-center px-4 py-2 border border-transparent text-sm font-bold rounded-lg text-white bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all">
         <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
         </svg>
@@ -161,7 +161,7 @@ ob_start();
                     <p class="text-center text-gray-500 text-sm">Aucun lien public pour le moment.</p>
                 <?php else: ?>
                     <?php foreach ($links as $link): ?>
-                        <a href="<?= htmlspecialchars($link['url']) ?>" target="_blank" rel="noopener noreferrer" class="group flex items-center p-4 bg-gray-50 rounded-xl border border-transparent transition-all hover:bg-white hover:border-blue-500 hover:shadow-md">
+                        <a target = "_blank" href="<?= htmlspecialchars($link['url']) ?>" target="_blank" rel="noopener noreferrer" class="group flex items-center p-4 bg-gray-50 rounded-xl border border-transparent transition-all hover:bg-white hover:border-blue-500 hover:shadow-md">
                             <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 bg-blue-100 text-blue-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">
                                 <?php if (!empty($link['icon'])): ?>
                                     <i class="<?= htmlspecialchars($link['icon']) ?>"></i> <!-- Si FontAwesome ou autre -->

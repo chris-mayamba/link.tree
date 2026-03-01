@@ -25,6 +25,8 @@
     z-index: -1;
     animation: move 20s infinite alternate ease-in-out;
     mix-blend-mode: multiply;
+    will-change: transform; /* Optimisation GPU */
+    transform: translateZ(0); /* Force l'accélération matérielle */
   }
 
   .blob-2 {

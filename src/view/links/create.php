@@ -75,18 +75,18 @@ $count = max(count($titles), count($urls));
 
     <div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative z-10">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-white">
+            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
                 Créer un nouveau lien
             </h2>
-            <p class="mt-2 text-center text-sm text-gray-400">
+            <p class="mt-2 text-center text-sm text-gray-600">
                 Ajoutez vos réseaux et personnalisez l'affichage
             </p>
         </div>
 
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div class="bg-gray-800 py-8 px-4 shadow sm:rounded-lg sm:px-10 border border-gray-700">
+            <div class="bg-white py-8 px-4 shadow-xl sm:rounded-lg sm:px-10 border border-gray-100">
                 <?php if(isset($_SESSION['errors']['global'])): ?>
-                    <div class="mb-4 p-4 text-sm text-red-500 bg-red-100 rounded-lg border border-red-200" role="alert">
+                    <div class="mb-4 p-4 text-sm text-red-500 bg-red-50 rounded-lg border border-red-200" role="alert">
                         <span class="font-medium">Erreur !</span> <?= $_SESSION['errors']['global'] ?>
                     </div>
                     <?php unset($_SESSION['errors']['global']); ?>
@@ -98,39 +98,39 @@ $count = max(count($titles), count($urls));
                     enctype="multipart/form-data">
                     
                     <!-- SECTION PROFIL (Correspondance Table Pages) -->
-                    <div class="space-y-4 border-b border-gray-700 pb-6 mb-6">
-                        <h3 class="text-lg font-medium text-white flex items-center gap-2">
-                            <i class="fa-solid fa-user-gear text-blue-500"></i> Votre Profil
+                    <div class="space-y-4 border-b border-gray-100 pb-6 mb-6">
+                        <h3 class="text-lg font-medium text-gray-900 flex items-center gap-2">
+                            <i class="fa-solid fa-user-gear text-blue-600"></i> Votre Profil
                         </h3>
                         
                         <div class="grid grid-cols-1 gap-4">
                             <div>
-                                <label class="block mb-2 text-sm font-medium text-white">Métier / Titre</label>
+                                <label class="block mb-2 text-sm font-medium text-gray-700">Métier / Titre</label>
                                 <input type="text" name="job_title" value="<?= htmlspecialchars($job_title_val) ?>" placeholder="Ex: Développeur Web Fullstack" 
-                                    class="bg-gray-700 border <?= isset($errors['job_title']) ? 'border-red-500' : 'border-gray-600' ?> text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                    class="bg-gray-50 border <?= isset($errors['job_title']) ? 'border-red-500' : 'border-gray-200' ?> text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                 <?php if(isset($errors['job_title'])): ?>
-                                    <p class="mt-2 text-sm text-red-500"><?= $errors['job_title'] ?></p>
+                                    <p class="mt-2 text-sm text-red-600"><?= $errors['job_title'] ?></p>
                                 <?php endif; ?>
                             </div>
                             
                             <div>
-                                <label class="block mb-2 text-sm font-medium text-white">Biographie courte</label>
+                                <label class="block mb-2 text-sm font-medium text-gray-700">Biographie courte</label>
                                 <textarea name="bio" rows="2" placeholder="Un petit mot sur vous..." 
-                                    class="bg-gray-700 border <?= isset($errors['bio']) ? 'border-red-500' : 'border-gray-600' ?> text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"><?= htmlspecialchars($bio_val) ?></textarea>
+                                    class="bg-gray-50 border <?= isset($errors['bio']) ? 'border-red-500' : 'border-gray-200' ?> text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"><?= htmlspecialchars($bio_val) ?></textarea>
                                 <?php if(isset($errors['bio'])): ?>
-                                    <p class="mt-2 text-sm text-red-500"><?= $errors['bio'] ?></p>
+                                    <p class="mt-2 text-sm text-red-600"><?= $errors['bio'] ?></p>
                                 <?php endif; ?>
                             </div>
 
                             <div>
-                                <label class="block mb-2 text-sm font-medium text-white">Photo de profil</label>
+                                <label class="block mb-2 text-sm font-medium text-gray-700">Photo de profil</label>
                                 <div class="flex items-center gap-4">
-                                    <div class="relative inline-flex items-center justify-center w-12 h-12 overflow-hidden bg-gray-600 rounded-full flex-shrink-0">
+                                    <div class="relative inline-flex items-center justify-center w-12 h-12 overflow-hidden bg-gray-100 rounded-full flex-shrink-0 border border-gray-200">
                                         <img id="avatar-preview" src="../../assets/favicon.png" class="w-full h-full object-cover hidden">
                                         <i id="avatar-placeholder" class="fa-solid fa-user text-gray-400"></i>
                                     </div>
                                     <input type="file" name="profile_picture" id="profile_picture_input" accept="image/*"
-                                        class="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer">
+                                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
                                 </div>
                             </div>
                         </div>
@@ -144,24 +144,24 @@ $count = max(count($titles), count($urls));
                             $errUrl = $errors['url'][$i] ?? null;
                         ?>
                         <!-- Bloc Lien (Modèle) -->
-                        <div class="link-group bg-gray-700/30 p-4 rounded-lg border border-gray-600 relative">
+                        <div class="link-group bg-gray-50 p-4 rounded-xl border border-gray-200 relative group hover:border-blue-400 transition-colors">
                             <?php if($i > 0): ?>
-                            <button type="button" class="remove-btn absolute top-2 right-2 text-gray-400 hover:text-red-500" onclick="this.closest('.link-group').remove()">
+                            <button type="button" class="remove-btn absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors" onclick="this.closest('.link-group').remove()">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                             </button>
                             <?php endif; ?>
 
                             <!-- Titre -->
                             <div class="mb-4">
-                                <label class="block mb-2 text-sm font-medium text-white flex justify-between">
+                                <label class="block mb-2 text-sm font-medium text-gray-700 flex justify-between">
                                     Titre du lien
-                                    <span class="icon-preview flex items-center gap-2 text-xs font-normal text-gray-400">
+                                    <span class="icon-preview flex items-center gap-2 text-xs font-normal text-gray-500">
                                         Icône suggérée : <img src="../../assets/favicon.png" class="w-4 h-4 rounded-sm icon-img opacity-0 transition-opacity">
                                     </span>
                                 </label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
                                         </svg>
                                     </div>
@@ -169,33 +169,33 @@ $count = max(count($titles), count($urls));
                                         type="text" 
                                         name="title[]" 
                                         value="<?= htmlspecialchars($valTitle) ?>"
-                                        class="title-input bg-gray-700 border <?= $errTitle ? 'border-red-500' : 'border-gray-600' ?> text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 placeholder-gray-400" 
+                                        class="title-input bg-white border <?= $errTitle ? 'border-red-500' : 'border-gray-300' ?> text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 placeholder-gray-400" 
                                         placeholder="Mon Instagram" 
                                         required>
                                 </div>
                                 <?php if($errTitle): ?>
-                                    <p class="mt-2 text-sm text-red-500"><?= $errTitle ?></p>
+                                    <p class="mt-2 text-sm text-red-600"><?= $errTitle ?></p>
                                 <?php endif; ?>
                             </div>
 
                             <!-- URL -->
                             <div class="mb-4">
-                                <label class="block mb-2 text-sm font-medium text-white">URL du réseau</label>
+                                <label class="block mb-2 text-sm font-medium text-gray-700">URL du réseau</label>
                                 <div class="flex">
                                     <span 
-                                        class="inline-flex items-center px-3 text-sm text-gray-400 bg-gray-600 border border-e-0 border-gray-600 rounded-s-md">
+                                        class="inline-flex items-center px-3 text-sm text-gray-500 bg-gray-100 border border-e-0 border-gray-300 rounded-s-md">
                                         https://
                                     </span>
                                     <input 
                                         type="text" 
                                         name="url[]" 
                                         value="<?= htmlspecialchars($valUrl) ?>"
-                                        class="url-input rounded-none rounded-e-lg bg-gray-700 border <?= $errUrl ? 'border-red-500' : 'border-gray-600' ?> text-white focus:ring-blue-500 focus:border-blue-500 block w-full min-w-0 flex-1 text-sm p-2.5 placeholder-gray-400" 
+                                        class="url-input rounded-none rounded-e-lg bg-white border <?= $errUrl ? 'border-red-500' : 'border-gray-300' ?> text-gray-900 focus:ring-blue-500 focus:border-blue-500 block w-full min-w-0 flex-1 text-sm p-2.5 placeholder-gray-400" 
                                         placeholder="www.instagram.com/pseudo" 
                                         required>
                                 </div>
                                 <?php if($errUrl): ?>
-                                    <p class="mt-2 text-sm text-red-500"><?= $errUrl ?></p>
+                                    <p class="mt-2 text-sm text-red-600"><?= $errUrl ?></p>
                                 <?php endif; ?>
                             </div>
 
@@ -206,23 +206,23 @@ $count = max(count($titles), count($urls));
                     </div>
 
                     <!-- Bouton Ajouter un autre lien -->
-                    <button type="button" id="add-link-btn" class="w-full py-2 px-4 border-2 border-dashed border-gray-500 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:border-gray-400 hover:bg-gray-700/50 transition-colors flex items-center justify-center gap-2">
+                    <button type="button" id="add-link-btn" class="w-full py-2 px-4 border-2 border-dashed border-gray-300 rounded-lg text-sm font-medium text-gray-600 hover:text-blue-600 hover:border-blue-400 hover:bg-blue-50 transition-colors flex items-center justify-center gap-2">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
                         Ajouter un autre réseau
                     </button>
 
                     <!-- Image Arrière-plan (File Upload) -->
                     <div>
-                        <label class="block mb-2 text-sm font-medium text-white" for="file_input">Image d'arrière-plan (Désactivé temporairement)</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-700" for="file_input">Image d'arrière-plan (Désactivé temporairement)</label>
                         
                         <div class="flex items-center justify-center w-full">
-                            <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-600 border-dashed rounded-lg cursor-not-allowed bg-gray-800 opacity-50">
+                            <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-not-allowed bg-gray-50 opacity-50">
                                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                    <svg class="w-8 h-8 mb-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 1 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
                                     </svg>
                                     <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Upload désactivé</span></p>
-                                    <p class="text-xs text-gray-600">SVG, PNG, JPG (MAX. 800x400px)</p>
+                                    <p class="text-xs text-gray-500">SVG, PNG, JPG (MAX. 800x400px)</p>
                                 </div>
                                 <input id="dropzone-file" name="background_image" type="file" class="hidden" accept="image/*" disabled />
                             </label>
@@ -231,10 +231,10 @@ $count = max(count($titles), count($urls));
 
                     <!-- Boutons -->
                     <div class="flex items-center justify-between space-x-4 pt-4">
-                        <a href="../links.php" class="w-full text-center py-2.5 px-4 border border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-300 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                        <a href="../links.php" class="w-full text-center py-2.5 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 transition-colors">
                             Retour
                         </a>
-                        <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <button type="submit" class="w-full text-white bg-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors shadow-lg hover:shadow-xl">
                             Enregistrer le lien
                         </button>
                     </div>
@@ -314,7 +314,8 @@ $count = max(count($titles), count($urls));
             inputs.forEach(input => {
                 input.value = '';
                 input.classList.remove('border-red-500');
-                if (input.classList.contains('bg-gray-700')) input.classList.add('border-gray-600');
+                // Restaurer la bordure par défaut (gris clair)
+                input.classList.add('border-gray-300');
             });
 
             // Réinitialiser l'icône preview
@@ -323,13 +324,13 @@ $count = max(count($titles), count($urls));
             iconImg.classList.add('opacity-0');
 
             // Supprimer les messages d'erreur du clone
-            newGroup.querySelectorAll('p.text-red-500').forEach(el => el.remove());
+            newGroup.querySelectorAll('p.text-red-600').forEach(el => el.remove());
             
             // Gestion du bouton de suppression
             if (!newGroup.querySelector('.remove-btn')) {
                 const removeBtn = document.createElement('button');
                 removeBtn.type = 'button';
-                removeBtn.className = 'remove-btn absolute top-2 right-2 text-gray-400 hover:text-red-500';
+                removeBtn.className = 'remove-btn absolute top-2 right-2 text-gray-400 hover:text-red-600 transition-colors';
                 removeBtn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
                 removeBtn.onclick = function() {
                     newGroup.remove();
