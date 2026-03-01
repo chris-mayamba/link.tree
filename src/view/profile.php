@@ -58,6 +58,13 @@ $title = $pageTitle;
 ob_start();
 ?>
 
+<!-- Blue background animation -->
+<div class="bg-animation fixed inset-0 pointer-events-none -z-10" aria-hidden="true">
+    <div class="blob" style="background: linear-gradient(135deg, rgba(59,130,246,0.2) 0%, rgba(14,165,233,0.2) 100%); filter: blur(80px);"></div>
+    <div class="blob blob-2" style="background: linear-gradient(135deg, rgba(37,99,235,0.15) 0%, rgba(96,165,250,0.15) 100%); left:20%; top:15%;"></div>
+    <div class="blob blob-3" style="background: linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(99,102,241,0.1) 100%); right:10%; bottom:5%; filter: blur(100px);"></div>
+</div>
+
 <!-- Include Tailwind Plus Elements for dropdown -->
 <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
 
@@ -119,7 +126,7 @@ ob_start();
 </script>
 <?php endif; ?>
 
-<div class="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center relative">
+<div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center relative">
     <!-- Card Container -->
     <div class="max-w-md w-full bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all hover:scale-[1.01]">
         
