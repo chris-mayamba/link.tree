@@ -78,4 +78,6 @@
   <div class="mx-auto max-w-screen-xl text-center">
       <span class="text-sm text-gray-400 sm:text-center">© 2026. Tous droits réservés.</span>
   </div>
+
+  <?php include __DIR__ . '/../includes/mailtome.php'; ?>
 </footer>

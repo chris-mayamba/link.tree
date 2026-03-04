@@ -206,6 +206,7 @@ ob_start();
     <div id="toast" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-full shadow-2xl transition-all duration-300 opacity-0 translate-y-10 pointer-events-none">
         Lien copié dans le presse-papiers !
     </div>
+    <?php include __DIR__ . '/../includes/mailtome.php'; ?>
 </div>
 
 <script>
