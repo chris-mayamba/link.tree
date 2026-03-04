@@ -56,22 +56,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $pageId = $page['id'];
 
-    // 3. Mise à jour des liens (Suppression totale puis recréation)
-    // On utilise une transaction ppoour éviter les états incohérents
+    // 3. Ajout des NOUVEAUX liens uniquement (on ne supprime plus les anciens !)
+    // On récupère le plus grand numéro d'ordre actuel pour ajouter à la suite
     $db = dbConnect();
+    
+    // Obtenir la position max actuelle
+    $stmt = $db->prepare('SELECT MAX(position) FROM links WHERE page_id = ?');
+    $stmt->execute([$pageId]);
+    $maxPosition = $stmt->fetchColumn();
+    $startingPosition = $maxPosition !== null ? $maxPosition + 1 : 0;
+
     try {
         $db->beginTransaction();
 
-        delete_links_by_page_id($pageId, $db);
-
-        // Réinsertion des liens valides
+        // Insertion des NOUVEAUX liens valides
         foreach ($titles as $key => $titleItem) {
             $urlItem = $urls[$key] ?? '';
             $iconItem = !empty($icons[$key]) ? $icons[$key] : null;   
             
-            // On ignore les entrées vides si jamais il y en a qui sont passées
+            // On ignore les entrées complètement vides
             if(trim($titleItem) !== '' && trim($urlItem) !== '') {
-                create_link($pageId, $titleItem, $urlItem, $iconItem, $key, $db); // $key sert de position
+                // On passe $startingPosition + $key pour définir l'ordre d'affichage
+                create_link($pageId, $titleItem, $urlItem, $iconItem, $startingPosition + $key, $db); 
             }
         }
 

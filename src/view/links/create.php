@@ -12,35 +12,14 @@ $errors = $_SESSION['errors'] ?? [];
 $old_inputs = $_SESSION['old_inputs'] ?? [];
 unset($_SESSION['errors'], $_SESSION['old_inputs']);
 
-// Initialisation
-$titles = [];
-$urls = [];
+// Initialisation pour un formulaire vide
+$titles = [''];
+$urls = [''];
 
-// 1. Cas : Retour d'erreur, on reprend les inputs envoyés
+// 1. Cas : Retour d'erreur (la soumission a échouée, on remet les infos tapées)
 if (!empty($old_inputs)) {
-    $titles = $old_inputs['title'] ?? [];
-    $urls = $old_inputs['url'] ?? [];
-} 
-// 2. Cas : Chargement des données existantes depuis la DB
-else {
-    $userId = $_SESSION['user']['id'];
-    $page = get_page_by_user_id($userId);
-    
-    if ($page) {
-        $links = get_links_by_page_id($page['id']);
-        if ($links) {
-            foreach($links as $link) {
-                $titles[] = $link['title'];
-                $urls[] = $link['url'];
-            }
-        }
-    }
-}
-
-// Fallback : au moins un champ vide pour démarrer
-if (empty($titles)) {
-    $titles = [''];
-    $urls = [''];
+    $titles = $old_inputs['title'] ?? [''];
+    $urls = $old_inputs['url'] ?? [''];
 }
 
 $count = max(count($titles), count($urls));
