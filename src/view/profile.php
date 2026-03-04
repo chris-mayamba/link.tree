@@ -102,12 +102,14 @@ ob_start();
              aria-labelledby="user-menu-button" 
              tabindex="-1">
             <!-- Profile Link -->
-            <a href="profile/profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Your profile</a>
+            <a href="/src/view/profile/profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Your profile</a>
+            <!-- Links Link -->
+            <a href="/src/view/links.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Your links</a>
             <!-- Dashboard Link -->
-            <a href="dashboard.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Dashboard</a>
+            <a href="/src/view/dashboard.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Dashboard</a>
             
             <!-- Sign Out -->
-            <form action="logout.php" method="post" class="block">
+            <form action="/src/view/logout.php" method="post" class="block">
                 <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Sign out</button>
             </form>
         </div>

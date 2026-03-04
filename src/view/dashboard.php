@@ -43,11 +43,11 @@ if (!isset($_SESSION['user'])) {
                                     class="rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">
                                     Profile
                                 </a>
-                                <a href="#"
+                                <a href="/src/view/profile/profile.php"
                                     class="invisible rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">
                                     Calendar
                                 </a>
-                                <a href="#"
+                                <a href="/src/view/profile/profile.php"
                                     class="invisible rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">
                                     Reports
                                 </a>
@@ -83,11 +83,18 @@ if (!isset($_SESSION['user'])) {
 
                                 <el-menu anchor="bottom end" popover
                                     class="w-48 origin-top-right rounded-md bg-white border border-gray-200 py-1 shadow-lg ring-1 ring-black/5 transition transition-discrete [--anchor-gap:--spacing(2)] data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in">
-                                    <a href="#"
+                                    <a href="/src/view/profile/profile.php"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50 focus:outline-hidden">
-                                        Your
-                                        profile</a>
-                                    <a href="#"
+                                        Your profile</a>
+                                    <!-- Links Link -->
+                                    <a href="/src/view/links.php"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50 focus:outline-hidden">
+                                        Your links</a>
+                                    <a href="/src/view/dashboard.php"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50 focus:outline-hidden">
+                                        Dashboard
+                                    </a>
+                                    <a href="/src/view/profile/profile.php"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50 focus:outline-hidden">
                                         Settings
                                     </a>
@@ -134,11 +141,11 @@ if (!isset($_SESSION['user'])) {
                         class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">
                         Profile
                     </a>
-                    <a href="#"
+                    <a href="/src/view/profile/profile.php"
                         class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">
                         Calendar
                     </a>
-                    <a href="#"
+                    <a href="/src/view/profile/profile.php"
                         class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">
                         Reports
                     </a>
@@ -168,10 +175,13 @@ if (!isset($_SESSION['user'])) {
                         </button>
                     </div>
                     <div class="mt-3 space-y-1 px-2">
-                        <a href="#"
-                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Your
-                            profile</a>
-                        <a href="#"
+                        <a href="/src/view/profile/profile.php"
+                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Your profile</a>
+                        <a href="/src/view/links.php"
+                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Your links</a>
+                        <a href="/src/view/dashboard.php"
+                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Dashboard</a>
+                        <a href="/src/view/profile/profile.php"
                             class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Settings</a>
                         <form action="logout.php" method="post">
                             <button type="submit"
