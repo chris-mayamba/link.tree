@@ -58,11 +58,11 @@ $title = $pageTitle;
 ob_start();
 ?>
 
-<!-- Blue background animation -->
+<!-- Soft background animation for white theme -->
 <div class="bg-animation fixed inset-0 pointer-events-none -z-10" aria-hidden="true">
-    <div class="blob" style="background: linear-gradient(135deg, rgba(59,130,246,0.2) 0%, rgba(14,165,233,0.2) 100%); filter: blur(80px);"></div>
-    <div class="blob blob-2" style="background: linear-gradient(135deg, rgba(37,99,235,0.15) 0%, rgba(96,165,250,0.15) 100%); left:20%; top:15%;"></div>
-    <div class="blob blob-3" style="background: linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(99,102,241,0.1) 100%); right:10%; bottom:5%; filter: blur(100px);"></div>
+    <div class="blob" style="background: linear-gradient(135deg, rgba(254,215,170,0.4) 0%, rgba(253,164,175,0.4) 100%);"></div>
+    <div class="blob blob-2" style="background: linear-gradient(135deg, rgba(191,219,254,0.4) 0%, rgba(199,210,254,0.4) 100%);"></div>
+    <div class="blob blob-3" style="background: linear-gradient(135deg, rgba(233,213,255,0.4) 0%, rgba(251,207,232,0.4) 100%);"></div>
 </div>
 
 <!-- Include Tailwind Plus Elements for dropdown -->
@@ -126,12 +126,12 @@ ob_start();
 </script>
 <?php endif; ?>
 
-<div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center relative">
+<div class="min-h-screen bg-gray-50/50 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center relative w-full">
     <!-- Card Container -->
-    <div class="max-w-md w-full bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all hover:scale-[1.01]">
+    <div class="max-w-md w-full bg-white/80 backdrop-blur-xl border border-gray-100 rounded-3xl shadow-2xl overflow-hidden transform transition-all hover:scale-[1.01]">
         
         <!-- Header/Cover Area -->
-        <div class="h-32 bg-linear-to-r from-blue-500 to-purple-600"></div>
+        <div class="h-32 bg-gradient-to-r from-orange-200 via-rose-200 to-fuchsia-200"></div>
 
         <!-- Profile Content -->
         <div class="relative px-6 pb-8">

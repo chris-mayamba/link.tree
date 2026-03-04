@@ -916,6 +916,9 @@
   .bg-gray-200 {
     background-color: var(--color-gray-200);
   }
+  .bg-gray-300 {
+    background-color: var(--color-gray-300);
+  }
   .bg-gray-600\/30 {
     background-color: color-mix(in srgb, oklch(44.6% 0.03 256.802) 30%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
@@ -1269,6 +1272,9 @@
   .text-gray-700 {
     color: var(--color-gray-700);
   }
+  .text-gray-800 {
+    color: var(--color-gray-800);
+  }
   .text-gray-900 {
     color: var(--color-gray-900);
   }
@@ -1353,6 +1359,12 @@
   }
   .ring-black {
     --tw-ring-color: var(--color-black);
+  }
+  .ring-black\/5 {
+    --tw-ring-color: color-mix(in srgb, #000 5%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      --tw-ring-color: color-mix(in oklab, var(--color-black) 5%, transparent);
+    }
   }
   .outline-1 {
     outline-style: var(--tw-outline-style);
@@ -1545,6 +1557,12 @@
       border-block-width: 1px;
     }
   }
+  .after\:border-gray-200 {
+    &::after {
+      content: var(--tw-content);
+      border-color: var(--color-gray-200);
+    }
+  }
   .after\:border-white\/10 {
     &::after {
       content: var(--tw-content);
@@ -1634,6 +1652,13 @@
       }
     }
   }
+  .hover\:bg-gray-200 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-gray-200);
+      }
+    }
+  }
   .hover\:bg-gray-700 {
     &:hover {
       @media (hover: hover) {
@@ -1706,6 +1731,13 @@
     &:hover {
       @media (hover: hover) {
         color: var(--color-blue-600);
+      }
+    }
+  }
+  .hover\:text-gray-500 {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-gray-500);
       }
     }
   }
@@ -1793,6 +1825,11 @@
       border-color: var(--color-gray-900);
     }
   }
+  .focus\:bg-gray-50 {
+    &:focus {
+      background-color: var(--color-gray-50);
+    }
+  }
   .focus\:bg-white\/5 {
     &:focus {
       background-color: color-mix(in srgb, #fff 5%, transparent);
@@ -1821,6 +1858,11 @@
   .focus\:ring-brand-medium {
     &:focus {
       --tw-ring-color: var(--color-brand-medium);
+    }
+  }
+  .focus\:ring-gray-100 {
+    &:focus {
+      --tw-ring-color: var(--color-gray-100);
     }
   }
   .focus\:ring-gray-200 {
@@ -1906,6 +1948,11 @@
       outline-offset: 2px;
     }
   }
+  .focus\:outline-gray-900 {
+    &:focus {
+      outline-color: var(--color-gray-900);
+    }
+  }
   .focus\:outline-indigo-500 {
     &:focus {
       outline-color: var(--color-indigo-500);
@@ -1926,6 +1973,11 @@
   .focus-visible\:outline-offset-2 {
     &:focus-visible {
       outline-offset: 2px;
+    }
+  }
+  .focus-visible\:outline-gray-900 {
+    &:focus-visible {
+      outline-color: var(--color-gray-900);
     }
   }
   .focus-visible\:outline-indigo-500 {

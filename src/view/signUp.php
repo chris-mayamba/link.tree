@@ -22,7 +22,7 @@ if (isset($_SESSION['user'])) {
   <div class="sm:mx-auto sm:w-full sm:max-w-xl">
     <div class="mb-6 flex flex-col items-start">
       <h2 class="text-xl font-bold tracking-tight text-gray-900">Create Account</h2>
-      <p class="mt-1 text-sm text-gray-500">Join us to start creating your links.</p>
+      <p class="text-sm text-gray-500">Join us to start creating your links.</p>
     </div>
 
     <?php if (isset($_SESSION['badge'])): ?>
@@ -41,12 +41,8 @@ if (isset($_SESSION['user'])) {
     <?php endif; ?>
   </div>
 
-  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-xl">
-    <div class="mb-8">
-      <h2 class="text-xl font-bold tracking-tight text-gray-900">Create Account</h2>
-      <p class="mt-2 text-sm text-gray-500">Join us to start creating your links.</p>
-    </div>
-
+  <div class="sm:mx-auto sm:w-full sm:max-w-xl">
+ 
     <div class="rounded-xl border border-gray-200 bg-white p-6 sm:p-8 shadow-sm">
 
       <form action="../controllers/user_register.php" method="POST" class="space-y-6">
