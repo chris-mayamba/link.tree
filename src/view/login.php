@@ -3,7 +3,7 @@ session_start();
 
 // If user is already logged in, redirect to dashboard
 if (isset($_SESSION['user'])) {
-  header('Location: links.php');
+  header('Location: profile.php');
   exit;
 }
 ?>

@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'type' => 'success',
                 'message' => 'Connexion réussie !'
             ];
-            header("Location: ../view/links.php");
+            header("Location: ../view/profile.php");
             exit;
         } else {
             $_SESSION['badge'] = [

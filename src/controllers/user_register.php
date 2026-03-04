@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'type' => 'success',
                     'message' => 'Bienvenue ! Votre compte a été créé avec succès.'
                 ];
-                header("Location: ../view/links.php");
+                header("Location: ../view/profile.php");
                 exit;
             }
         } else {
