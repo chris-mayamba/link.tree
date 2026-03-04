@@ -11,27 +11,11 @@ if (!isset($_SESSION['user'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    $job_title = isset($_POST['job_title']) ? trim($_POST['job_title']) : '';
-    $bio = isset($_POST['bio']) ? trim($_POST['bio']) : '';
-    
     $titles = isset($_POST['title']) ? $_POST['title'] : [] ;
     $urls = isset($_POST['url']) ? $_POST['url'] : [] ;
     $icons = isset($_POST['icon']) ? $_POST['icon'] : [] ;
 
     $errors = [];
-
-    // Validation du Profil
-    try {
-        validateJobTitle($job_title);
-    } catch (Exception $e) {
-        $errors['job_title'] = $e->getMessage();
-    }
-
-    try {
-        validateBio($bio);
-    } catch (Exception $e) {
-        $errors['bio'] = $e->getMessage();
-    }
 
     // Validation des Liens
     foreach($titles as $key => $title) {
@@ -71,9 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Erreur : Page utilisateur introuvable.");
     }
     $pageId = $page['id'];
-
-    // 2. Mise à jour des infos de la page (Bio, Métier)
-    update_page_info($pageId, $job_title, $bio);
 
     // 3. Mise à jour des liens (Suppression totale puis recréation)
     // On utilise une transaction ppoour éviter les états incohérents
@@ -148,26 +129,4 @@ function validateUrl($url){
         throw new Exception("L'url doit contenir au moins 5 caractères.");
     }
 
-}
-
-function validateJobTitle($job_title) {
-            
-    if ($job_title === null || $job_title === '') {
-        throw new Exception('Ce champ ne doit pas être vide.');
-    }
-
-    if (trim($job_title) === '') {
-        throw new Exception('Ce champ ne peut contenir que des espaces.');
-    }
-    
-    if (mb_strlen($job_title) > 100) {
-        throw new Exception("Le titre du métier ne doit pas dépasser 100 caractères.");
-    }
-}
-
-function validateBio($bio) {        
-    
-    if (mb_strlen($bio) > 500) {
-        throw new Exception("La biographie ne doit pas dépasser 500 caractères.");
-    }
 }

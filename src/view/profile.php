@@ -102,7 +102,7 @@ ob_start();
              aria-labelledby="user-menu-button" 
              tabindex="-1">
             <!-- Profile Link -->
-            <a href="profile.php?u=<?= $_SESSION['user']['username'] ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Your profile</a>
+            <a href="profile/profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Your profile</a>
             <!-- Dashboard Link -->
             <a href="dashboard.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Dashboard</a>
             

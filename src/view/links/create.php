@@ -15,15 +15,11 @@ unset($_SESSION['errors'], $_SESSION['old_inputs']);
 // Initialisation
 $titles = [];
 $urls = [];
-$job_title_val = '';
-$bio_val = '';
 
 // 1. Cas : Retour d'erreur, on reprend les inputs envoyés
 if (!empty($old_inputs)) {
     $titles = $old_inputs['title'] ?? [];
     $urls = $old_inputs['url'] ?? [];
-    $job_title_val = $old_inputs['job_title'] ?? '';
-    $bio_val = $old_inputs['bio'] ?? '';
 } 
 // 2. Cas : Chargement des données existantes depuis la DB
 else {
@@ -31,9 +27,6 @@ else {
     $page = get_page_by_user_id($userId);
     
     if ($page) {
-        $job_title_val = $page['job_title'] ?? '';
-        $bio_val = $page['bio'] ?? '';
-        
         $links = get_links_by_page_id($page['id']);
         if ($links) {
             foreach($links as $link) {
@@ -97,45 +90,7 @@ $count = max(count($titles), count($urls));
                     method="POST" 
                     enctype="multipart/form-data">
                     
-                    <!-- SECTION PROFIL (Correspondance Table Pages) -->
-                    <div class="space-y-4 border-b border-gray-100 pb-6 mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 flex items-center gap-2">
-                            <i class="fa-solid fa-user-gear text-blue-600"></i> Votre Profil
-                        </h3>
-                        
-                        <div class="grid grid-cols-1 gap-4">
-                            <div>
-                                <label class="block mb-2 text-sm font-medium text-gray-700">Métier / Titre</label>
-                                <input type="text" name="job_title" value="<?= htmlspecialchars($job_title_val) ?>" placeholder="Ex: Développeur Web Fullstack" 
-                                    class="bg-gray-50 border <?= isset($errors['job_title']) ? 'border-red-500' : 'border-gray-200' ?> text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                                <?php if(isset($errors['job_title'])): ?>
-                                    <p class="mt-2 text-sm text-red-600"><?= $errors['job_title'] ?></p>
-                                <?php endif; ?>
-                            </div>
-                            
-                            <div>
-                                <label class="block mb-2 text-sm font-medium text-gray-700">Biographie courte</label>
-                                <textarea name="bio" rows="2" placeholder="Un petit mot sur vous..." 
-                                    class="bg-gray-50 border <?= isset($errors['bio']) ? 'border-red-500' : 'border-gray-200' ?> text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"><?= htmlspecialchars($bio_val) ?></textarea>
-                                <?php if(isset($errors['bio'])): ?>
-                                    <p class="mt-2 text-sm text-red-600"><?= $errors['bio'] ?></p>
-                                <?php endif; ?>
-                            </div>
-
-                            <div>
-                                <label class="block mb-2 text-sm font-medium text-gray-700">Photo de profil</label>
-                                <div class="flex items-center gap-4">
-                                    <div class="relative inline-flex items-center justify-center w-12 h-12 overflow-hidden bg-gray-100 rounded-full flex-shrink-0 border border-gray-200">
-                                        <img id="avatar-preview" src="../../assets/favicon.png" class="w-full h-full object-cover hidden">
-                                        <i id="avatar-placeholder" class="fa-solid fa-user text-gray-400"></i>
-                                    </div>
-                                    <input type="file" name="profile_picture" id="profile_picture_input" accept="image/*"
-                                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <!-- SECTION LIENS (Correspondance Table Links) -->
                     <div id="links-container" class="space-y-6">
                         <?php for($i = 0; $i < $count; $i++): 
                             $valTitle = $titles[$i] ?? '';
