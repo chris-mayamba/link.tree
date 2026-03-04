@@ -131,7 +131,18 @@ ob_start();
     <div class="max-w-md w-full bg-white/80 backdrop-blur-xl border border-gray-100 rounded-3xl shadow-2xl overflow-hidden transform transition-all hover:scale-[1.01]">
         
         <!-- Header/Cover Area -->
-        <div class="h-32 bg-gradient-to-r from-orange-200 via-rose-200 to-fuchsia-200"></div>
+        <style>
+            @keyframes gradientFlow {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+            .animate-gradient {
+                background-size: 200% 200%;
+                animation: gradientFlow 6s ease infinite;
+            }
+        </style>
+        <div class="h-32 bg-gradient-to-r from-orange-200 via-rose-200 to-fuchsia-200 animate-gradient"></div>
 
         <!-- Profile Content -->
         <div class="relative px-6 pb-8">
