@@ -54,7 +54,7 @@ $same_mobile = "block rounded-md px-3 py-2 text-base font-medium text-gray-600 h
                                     My links
                                 </a>
                                 <a href="dashboard.php" aria-current="page"
-                                    class="<?= $title === "Dashboard" ? $current : $same;?>">
+                                    class="hidden <?= $title === "Dashboard" ? $current : $same;?>">
                                     Dashboard
                                 </a>
                                 <a href="/<?= htmlspecialchars($_SESSION['user']['username']) ?>"
@@ -108,7 +108,7 @@ $same_mobile = "block rounded-md px-3 py-2 text-base font-medium text-gray-600 h
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50 focus:outline-hidden">
                                         Your links</a>
                                     <a href="/src/view/dashboard.php"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50 focus:outline-hidden">
+                                        class="hidden block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50 focus:outline-hidden">
                                         Dashboard</a>
                                     <a href="/src/view/profile/profile.php"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50 focus:outline-hidden">
@@ -151,7 +151,7 @@ $same_mobile = "block rounded-md px-3 py-2 text-base font-medium text-gray-600 h
                         My links
                     </a>
                     <a href="dashboard.php" aria-current="page"
-                        class="block rounded-md bg-gray-950/50 px-3 py-2 text-base font-medium text-white">
+                        class="hidden block rounded-md bg-gray-950/50 px-3 py-2 text-base font-medium text-white">
                         Dashboard
                     </a>
                     <a href="/src/view/profile/profile.php"
@@ -197,7 +197,7 @@ $same_mobile = "block rounded-md px-3 py-2 text-base font-medium text-gray-600 h
                         <a href="/src/view/links.php"
                             class="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900">Your links</a>
                         <a href="/src/view/dashboard.php"
-                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900">Dashboard</a>
+                            class="hidden block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900">Dashboard</a>
                         <a href="/src/view/profile/profile.php"
                             class="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900">Settings</a>
                         <form action="logout.php" method="post">

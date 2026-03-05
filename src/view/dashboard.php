@@ -36,7 +36,7 @@ if (!isset($_SESSION['user'])) {
                                     My links
                                 </a>
                                 <a href="dashboard.php" aria-current="page"
-                                    class="rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-900">
+                                    class="hidden rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-900">
                                     Dashboard
                                 </a>
                                 <a href="/<?= htmlspecialchars($_SESSION['user']['username']) ?>"
@@ -91,7 +91,7 @@ if (!isset($_SESSION['user'])) {
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50 focus:outline-hidden">
                                         Your links</a>
                                     <a href="/src/view/dashboard.php"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50 focus:outline-hidden">
+                                        class="hidden block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50 focus:outline-hidden">
                                         Dashboard
                                     </a>
                                     <a href="/src/view/profile/profile.php"
@@ -134,7 +134,7 @@ if (!isset($_SESSION['user'])) {
                         My links
                     </a>
                     <a href="dashboard.php" aria-current="page"
-                        class="block rounded-md bg-gray-100 px-3 py-2 text-base font-medium text-gray-900">
+                        class="hidden block rounded-md bg-gray-100 px-3 py-2 text-base font-medium text-gray-900">
                         Dashboard
                     </a>
                     <a href="/<?= htmlspecialchars($_SESSION['user']['username']) ?>"
@@ -180,7 +180,7 @@ if (!isset($_SESSION['user'])) {
                         <a href="/src/view/links.php"
                             class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Your links</a>
                         <a href="/src/view/dashboard.php"
-                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Dashboard</a>
+                            class="hidden block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900">Dashboard</a>
                         <a href="/src/view/profile/profile.php"
                             class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Settings</a>
                         <form action="logout.php" method="post">

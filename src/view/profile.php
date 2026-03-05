@@ -72,7 +72,7 @@ ob_start();
 <?php if (isset($_SESSION['user']['username']) && $_SESSION['user']['username'] === $userProfile['username']): ?>
 <nav class="absolute top-0 right-0 p-4 z-50 flex items-center space-x-4">
     <!-- Add Link Button -->
-    <a href="src/view/links/create.php" class="flex items-center justify-center px-4 py-2 border border-transparent text-sm font-bold rounded-lg text-white bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all">
+    <a href="../view/links/create.php" class="flex items-center justify-center px-4 py-2 border border-transparent text-sm font-bold rounded-lg text-white bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all">
         <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
         </svg>
@@ -105,8 +105,8 @@ ob_start();
             <a href="/src/view/profile/profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Your profile</a>
             <!-- Links Link -->
             <a href="/src/view/links.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Your links</a>
-            <!-- Dashboard Link -->
-            <a href="/src/view/dashboard.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Dashboard</a>
+            <!-- Dashboard Link (Inactif) -->
+            <a href="/src/view/dashboard.php" class="hidden block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Dashboard</a>
             
             <!-- Sign Out -->
             <form action="/src/view/logout.php" method="post" class="block">
@@ -209,7 +209,7 @@ ob_start();
             
             <?php if (isset($_SESSION['user']['username']) && $_SESSION['user']['username'] === $userProfile['username']): ?>
                 <div class="mt-4 text-center">
-                    <a href="dashboard.php" class="text-sm text-gray-500 hover:text-gray-900 underline">Retour au Dashboard</a>
+                    
                 </div>
             <?php endif; ?>
         </div>
