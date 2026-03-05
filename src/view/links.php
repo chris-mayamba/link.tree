@@ -1,9 +1,20 @@
 <?php session_start(); 
+require_once __DIR__ . '/../model/user.php';
+require_once __DIR__ . '/../model/model_links.php';
 
 if (!isset($_SESSION['user'])) {
     
     header('Location: ../view/login.php');
+    exit;
 };
+
+// Récupération des liens
+$userId = $_SESSION['user']['id'];
+$page = get_page_by_user_id($userId); // Assurez-vous que cette fonction existe dans user.php
+$links = [];
+if ($page) {
+    $links = get_links_by_page_id($page['id']); 
+}
 
 $current = "rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-900";
 $same = "rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900";
@@ -208,12 +219,82 @@ $same_mobile = "block rounded-md px-3 py-2 text-base font-medium text-gray-600 h
         </header>
         <main>
             <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                <!-- Big create link button -->
-                <div class="flex justify-center">
-                    <a href="links/create.php" class="inline-flex items-center justify-center rounded-2xl text-white px-12 py-5 text-xl font-semibold shadow-2xl transition-all min-w-[300px] bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:from-teal-500 hover:to-teal-700 focus:ring-4 focus:outline-none focus:ring-teal-300">
-                        <svg class="w-6 h-6 mr-2 flex-shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                        <span class="leading-none">Créer un lien</span>
-                    </a>
+                <!-- Header avec bouton d'ajout -->
+                <div class="sm:flex sm:items-center">
+                    <div class="sm:flex-auto">
+                        <h2 class="text-base font-semibold leading-6 text-gray-900">Vos liens</h2>
+                        <p class="mt-2 text-sm text-gray-700">Une liste de tous les liens de votre page, y compris leur titre, URL et statut.</p>
+                    </div>
+                    <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+                        <a href="links/create.php" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Ajouter un lien</a>
+                    </div>
+                </div>
+
+                <!-- Tableau des liens -->
+                <div class="mt-8 flow-root">
+                    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                            <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                                <table class="min-w-full divide-y divide-gray-300">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Titre</th>
+                                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">URL</th>
+                                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Statut</th>
+                                            <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                                                <span class="sr-only">Actions</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200 bg-white">
+                                        <?php if (empty($links)): ?>
+                                            <tr>
+                                                <td colspan="4" class="py-4 pl-4 pr-3 text-sm text-gray-500 sm:pl-6 text-center">Aucun lien trouvé. Commencez par en ajouter un !</td>
+                                            </tr>
+                                        <?php else: ?>
+                                            <?php foreach ($links as $link): ?>
+                                                <tr>
+                                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                                        <div class="flex items-center">
+                                                            <?php if ($link['icon']): ?>
+                                                                <div class="h-8 w-8 flex-shrink-0 mr-3">
+                                                                    <!-- Affichage simple de l'icône si c'est une image ou une classe -->
+                                                                    <?php if (strpos($link['icon'], 'http') === 0 || strpos($link['icon'], '/') === 0): ?>
+                                                                        <img class="h-8 w-8 rounded-full" src="<?= htmlspecialchars($link['icon']) ?>" alt="">
+                                                                    <?php else: ?>
+                                                                        <span class="<?= htmlspecialchars($link['icon']) ?>"></span>
+                                                                    <?php endif; ?>
+                                                                </div>
+                                                            <?php endif; ?>
+                                                            <div><?= htmlspecialchars($link['title']) ?></div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                        <a href="<?= htmlspecialchars($link['url']) ?>" target="_blank" class="text-indigo-600 hover:text-indigo-900 truncate max-w-xs block"><?= htmlspecialchars($link['url']) ?></a>
+                                                    </td>
+                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                        <?php if ($link['is_active']): ?>
+                                                            <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Actif</span>
+                                                        <?php else: ?>
+                                                            <span class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">Inactif</span>
+                                                        <?php endif; ?>
+                                                    </td>
+                                                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                                        <a href="links/edit.php?id=<?= $link['id'] ?>" class="text-indigo-600 hover:text-indigo-900 mr-4">Modifier</a>
+                                                        <form action="../controllers/controller_links.php" method="POST" class="inline-block" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce lien ?');">
+                                                            <input type="hidden" name="action" value="delete">
+                                                            <input type="hidden" name="id" value="<?= $link['id'] ?>">
+                                                            <button type="submit" class="text-red-600 hover:text-red-900 bg-transparent border-0 cursor-pointer p-0">Supprimer</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
