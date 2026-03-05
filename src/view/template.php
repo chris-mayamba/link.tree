@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/src/public/style.css">
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.png">
     <title><?= $title ?></title>
 </head>
 <body class="bg-gray-50 h-full w-full font-sans antialiased text-gray-900">

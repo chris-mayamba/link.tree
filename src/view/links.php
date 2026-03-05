@@ -61,14 +61,6 @@ $same_mobile = "block rounded-md px-3 py-2 text-base font-medium text-gray-600 h
                                     class="<?= $title === "Dashboard" ? $current : $same;?>">
                                     Profile
                                 </a>
-                                <a href="/src/view/profile/profile.php"
-                                    class="invisible rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                                    Calendar
-                                </a>
-                                <a href="/src/view/profile/profile.php"
-                                    class="invisible rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                                    Reports
-                                </a>
                             </div>
                         </div>
                     </div>
@@ -110,10 +102,10 @@ $same_mobile = "block rounded-md px-3 py-2 text-base font-medium text-gray-600 h
                                     <a href="/src/view/dashboard.php"
                                         class="hidden block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50 focus:outline-hidden">
                                         Dashboard</a>
-                                    <a href="/src/view/profile/profile.php"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50 focus:outline-hidden">
-                                        Settings
-                                    </a>
+                                    <!-- Future Dark Mode Toggle -->
+                                    <button type="button" disabled class="w-full text-left block px-4 py-2 text-sm text-gray-400 cursor-not-allowed">
+                                        Dark Mode (Bientôt)
+                                    </button>
                                     <form action="logout.php" method="post">
                                         <button type="submit"
                                             class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50 focus:outline-hidden">
@@ -147,24 +139,12 @@ $same_mobile = "block rounded-md px-3 py-2 text-base font-medium text-gray-600 h
                 <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
                     <!-- Current: "bg-gray-950/50 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
                     <a href="links.php"
-                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white">
+                        class="<?= $title === "Links" ? $current_mobile : $same_mobile;?>">
                         My links
                     </a>
                     <a href="dashboard.php" aria-current="page"
-                        class="hidden block rounded-md bg-gray-950/50 px-3 py-2 text-base font-medium text-white">
+                        class="hidden <?= $title === "Dashboard" ? $current_mobile : $same_mobile;?>">
                         Dashboard
-                    </a>
-                    <a href="/src/view/profile/profile.php"
-                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white">
-                        Projects
-                    </a>
-                    <a href="/src/view/profile/profile.php"
-                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white">
-                        Calendar
-                    </a>
-                    <a href="/src/view/profile/profile.php"
-                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900">
-                        Reports
                     </a>
                 </div>
                 <div class="border-t border-gray-200 pt-4 pb-3">
@@ -172,12 +152,12 @@ $same_mobile = "block rounded-md px-3 py-2 text-base font-medium text-gray-600 h
                         <div class="shrink-0">
                             <div
                                 class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full border border-gray-200">
-                                <span class="font-medium text-gray-600">JL</span>
+                                <span class="font-medium text-gray-600"><?= ucfirst($_SESSION['user']['username'][0]); ?></span>
                             </div>
                         </div>
                         <div class="ml-3">
-                            <div class="text-base/5 font-medium text-gray-800">Tom Cook</div>
-                            <div class="text-sm font-medium text-gray-500">tom@example.com</div>
+                            <div class="text-base/5 font-medium text-gray-800"><?= htmlspecialchars($_SESSION['user']['username']) ?></div>
+                            <div class="text-sm font-medium text-gray-500"><?= htmlspecialchars($_SESSION['user']['email']) ?></div>
                         </div>
                         <button type="button"
                             class="relative ml-auto shrink-0 rounded-full p-1 text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500">
@@ -198,8 +178,10 @@ $same_mobile = "block rounded-md px-3 py-2 text-base font-medium text-gray-600 h
                             class="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900">Your links</a>
                         <a href="/src/view/dashboard.php"
                             class="hidden block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900">Dashboard</a>
-                        <a href="/src/view/profile/profile.php"
-                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900">Settings</a>
+                        <!-- Future Dark Mode Toggle -->
+                        <button type="button" disabled class="block w-full text-left rounded-md px-3 py-2 text-base font-medium text-gray-400 cursor-not-allowed">
+                            Dark Mode (Bientôt)
+                        </button>
                         <form action="logout.php" method="post">
                             <button type="submit"
                                 class="block w-full text-left rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900">

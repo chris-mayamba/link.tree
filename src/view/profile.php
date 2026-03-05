@@ -108,7 +108,10 @@ ob_start();
             <!-- Dashboard Link (Inactif) -->
             <a href="/src/view/dashboard.php" class="hidden block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Dashboard</a>
             
-            <!-- Sign Out -->
+            <!-- Future Dark Mode Toggle -->
+            <button type="button" disabled class="w-full text-left block px-4 py-2 text-sm text-gray-400 cursor-not-allowed" role="menuitem" tabindex="-1">
+                Dark Mode (Bientôt)
+            </button>
             <form action="/src/view/logout.php" method="post" class="block">
                 <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Sign out</button>
             </form>
