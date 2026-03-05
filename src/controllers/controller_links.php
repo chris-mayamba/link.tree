@@ -11,6 +11,66 @@ if (!isset($_SESSION['user'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
+    $action = $_POST['action'] ?? 'create';
+
+    // 1. Récupérer la page de l'utilisateur
+    $userId = $_SESSION['user']['id'];
+    $page = get_page_by_user_id($userId);
+
+    if (!$page) {
+        die("Erreur : Page utilisateur introuvable.");
+    }
+    $pageId = (int)$page['id'];
+
+    if ($action === 'delete') {
+        $linkId = $_POST['id'];
+        // Vérification appartenance (sécurité)
+        $link = get_link_by_id($linkId);
+        if ($link && $link['page_id'] == $pageId) {
+            $db = dbConnect();
+            $stmt = $db->prepare("DELETE FROM links WHERE id = :id");
+            $stmt->execute(['id' => $linkId]);
+        }
+        header('Location: ../view/links.php');
+        exit;
+    }
+
+    if ($action === 'update') {
+        $linkId = $_POST['id'];
+        $title = $_POST['title'];
+        $url = $_POST['url'];
+        $icon = $_POST['icon'] ?? '';
+        $isActive = isset($_POST['is_active']) ? 1 : 0;
+        
+        // Validation rapide
+        try {
+            validateTitle($title);
+            
+            // Normalisation URL
+            if (!empty($url) && !preg_match("~^(?:f|ht)tps?://~i", $url)) {
+                $url = "https://" . $url;
+            }
+            validateUrl($url);
+
+            // Récupérer l'ancien lien pour garder sa position
+            $oldLink = get_link_by_id($linkId);
+            if ($oldLink && $oldLink['page_id'] == $pageId) {
+                updateLink($linkId, $pageId, $title, $url, $icon, $oldLink['position'], $isActive);
+            }
+            
+            header('Location: ../view/links.php');
+            exit;
+
+        } catch (Exception $e) {
+            $_SESSION['errors']['global'] = $e->getMessage();
+            $_SESSION['old_inputs'] = $_POST;
+            header("Location: ../view/links/edit.php?id=$linkId");
+            exit;
+        }
+    }
+
+    // --- LOGIQUE DE CRÉATION (Par défaut) ---
+
     $titles = isset($_POST['title']) ? $_POST['title'] : [] ;
     $urls = isset($_POST['url']) ? $_POST['url'] : [] ;
     $icons = isset($_POST['icon']) ? $_POST['icon'] : [] ;

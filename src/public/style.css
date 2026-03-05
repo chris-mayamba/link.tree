@@ -425,6 +425,9 @@
   .-my-2 {
     margin-block: calc(var(--spacing) * -2);
   }
+  .ms-2 {
+    margin-inline-start: calc(var(--spacing) * 2);
+  }
   .-mt-16 {
     margin-top: calc(var(--spacing) * -16);
   }
