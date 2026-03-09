@@ -82,8 +82,6 @@ Nous serions ravis de vous avoir parmi nous ! Si vous souhaitez contribuer à **
 *   **Proposer des améliorations :** Soumettez une "Pull Request" avec vos nouvelles fonctionnalités ou améliorations.
 *   **Améliorer la documentation :** Toute aide pour rendre ce projet plus accessible est la bienvenue.
 
-Veuillez lire notre [CONTRIBUTING.md](CONTRIBUTING.md) (si ce fichier existe) pour plus de détails sur notre processus de contribution.
-
 ---
 
 ## ⚖️ Licence
